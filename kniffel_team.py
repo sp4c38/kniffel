@@ -5,7 +5,7 @@ import pygame
 import sys
 import time
 
-from modules import window_code, draw_table
+from modules import window_code, draw_table, utils
 
 from settings import settings
 
@@ -20,6 +20,9 @@ def main():
     player_number = 4
 
     table = draw_table.get_table(window, player_number, settings) # Get table information
+    time.sleep(2)
+    if settings["window_resizable"]:
+        screen = pygame.display.set_mode((window.width, window.height), pygame.RESIZABLE)
 
     while True:
         window_code.clear_window(pygame, screen, settings)
@@ -31,12 +34,15 @@ def main():
             if e.type == pygame.QUIT:
                 print("Quitting program.")
                 sys.exit(0)
+            if settings["window_resizable"]:
+                if e.type == pygame.VIDEORESIZE:
+                    screen, window, table = window_code.update_window(pygame, player_number, e, settings)
 
         draw_table.draw(pygame, screen, table, settings)
 
         pygame.display.flip()
 
-        time.sleep(3)
+        time.sleep(1)
 
         
         

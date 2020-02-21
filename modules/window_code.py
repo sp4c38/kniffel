@@ -1,33 +1,39 @@
 import sys
 import time
 
-from modules import utils
+from modules import utils, draw_table
+
+class WindowClass:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+    def add_sections(self, settings):
+        if settings["table_size"] + settings["information_size"] != 1:
+            print(f"The total width of the table and the information page must be 1, but is {self.table_width+self.information_width}.")
+            sys.exit(1)
+        self.table_width = self.width * settings["table_size"]
+        self.table_height = self.height
+        self.information_width = self.width * settings["information_size"]
+
+def update_window(pygame, player_number, event, settings):
+    new_size = event.size
+    window = WindowClass(new_size[0], new_size[1])
+    window.add_sections(settings)
+    screen = pygame.display.set_mode((window.width, window.height), pygame.RESIZABLE)
+    screen.fill(settings["bg_color"])
+    table = draw_table.get_table(window, player_number, settings)
+
+    return screen, window, table
 
 def create_window(pygame, settings):
-    class WindowClass:
-        def __init__(self):
-            self.width = settings["window_size"][0]
-            self.height = settings["window_size"][1]
-        def add_sections(self):
-            if settings["table_size"] + settings["information_size"] != 1:
-                print(f"The total width of the table and the information page must be 1, but is {self.table_width+self.information_width}.")
-                sys.exit(1)
 
-            self.table_width = self.width * settings["table_size"]
-            self.table_height = self.height
-            self.information_width = self.width * settings["information_size"]
-
-
-    window = WindowClass()
-    window.add_sections()
+    window = WindowClass(settings["window_size"][0], settings["window_size"][1])
+    window.add_sections(settings)
     # Load the window and create it
 
     print(f"Creating window with size {window.width} x {window.height}")
 
-    if settings["window_resizable"]:
-        screen = pygame.display.set_mode((window.width, window.height), pygame.RESIZABLE)
-    else:
-        screen = pygame.display.set_mode((window.width, window.height))
+    screen = pygame.display.set_mode((window.width, window.height))
 
     pygame.display.set_caption(settings["window_name"])
 

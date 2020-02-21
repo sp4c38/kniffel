@@ -19,7 +19,7 @@ def draw_detail_column(pygame, screen, settings, table):
 
     height_pointer = 0 # The height_pointer indicates the current state where the program is with drawing / needed because we want text in each cell
     for section in settings["kniffel_names"]:
-        # import IPython;IPython.embed();import sys;sys.exit()
+
         font_size = []
         for cell in section:
             for name in cell:
