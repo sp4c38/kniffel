@@ -1,7 +1,7 @@
 import sys
 import time
 
-from modules import utils, draw_table
+from modules import utils, draw_table, information
 
 class WindowClass:
     def __init__(self, width, height):
@@ -22,8 +22,9 @@ def update_window(pygame, player_number, event, settings):
     screen = pygame.display.set_mode((window.width, window.height), pygame.RESIZABLE)
     screen.fill(settings["bg_color"])
     table = draw_table.get_table(window, player_number, settings)
+    information_page = information.get_information_page(pygame, window, settings)
 
-    return screen, window, table
+    return screen, window, table, information_page
 
 def create_window(pygame, settings):
 
@@ -58,7 +59,7 @@ def welcome_text(pygame, screen, window, user, settings):
     font_size = min([utils.get_font_by_size(pygame, spaced_size, line[0], len(welcome_text), settings) for line in welcome_text]) # Take the font size for the text with the smallest one -> that it looks nice
     font = pygame.font.Font(settings["font"], font_size)
 
-    start_point, summand = utils.center_text_height(pygame, font, welcome_text, window.height)
+    start_point, summand = utils.center_text_height(pygame, font, len(welcome_text), window.height)
 
     line_indicator = 0
     for line in welcome_text:
@@ -66,7 +67,7 @@ def welcome_text(pygame, screen, window, user, settings):
         if line_indicator == 1:
             line[0] = line[0].format(user)
         text = font.render(line[0], True, line[1])
-        textpos = (utils.center_text_width(pygame, font, line[0], window.width), start_point)
+        textpos = (utils.center_text_width(pygame, text, window.width), start_point)
         screen.blit(text, textpos)
 
         start_point += summand
@@ -86,9 +87,15 @@ def ask_player_number(pygame, screen, window, settings):
     font_size = min([utils.get_font_by_size(pygame, spaced_size, line[0], len(player_text_list), settings) for line in player_text_list]) # Take the font size for the text with the smallest one -> that it looks nice
     font = pygame.font.Font(settings["font"], font_size)
 
+    start_point, summand = utils.center_text_height(pygame, font, len(player_text_list), window.height)
+
+    line_counter = 0
     for line in player_text_list:
+        line_counter += 1
+        if line_counter == 2:
+            line[0] = line[0].format(settings["max_players"])
         text = font.render(line[0], True, line[1])
-        textpos = (utils.center_text_width(pygame, font, line[0], window.width), start_point)
+        textpos = (utils.center_text_width(pygame, text, window.width), start_point)
 
         screen.blit(text, textpos)
 
@@ -100,10 +107,11 @@ def ask_player_number(pygame, screen, window, settings):
     while not player_number_found:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.unicode in [str(x) for x in range(settings["max_players"])]:
+
+                if event.unicode in [str(x) for x in range(settings["max_players"]+1) if not x in [0, 1]]:
                     players_to_play = int(event.unicode)
                     player_number_found = True
-
+                    print(f"{players_to_play} players are playing.")
                     player_successful = settings["player_number_successful"]
                     font_size = min([utils.get_font_by_size(pygame, spaced_size, line[0], len(player_successful), settings) for line in player_successful]) # Take the font size for the text with the smallest one -> that it looks nice
                     font = pygame.font.Font(settings["font"], font_size)
@@ -111,11 +119,11 @@ def ask_player_number(pygame, screen, window, settings):
                     clear_window(pygame, screen, settings)
                     pygame.display.flip()
 
-                    start_point, summand = utils.center_text_height(pygame, font, player_successful, window.height)
+                    start_point, summand = utils.center_text_height(pygame, font, len(player_successful), window.height)
 
                     for line in settings["player_number_successful"]:
                         text = font.render(line[0].format(players_to_play), True, line[1])
-                        textpos = (utils.center_text_width(pygame, font, line[0], window.width), start_point)
+                        textpos = (utils.center_text_width(pygame, text, window.width), start_point)
                         screen.blit(text, textpos)
                         pygame.display.flip()
 
@@ -131,11 +139,15 @@ def ask_player_number(pygame, screen, window, settings):
                     clear_window(pygame, screen, settings)
                     pygame.display.flip()
 
-                    start_point, summand = utils.center_text_height(pygame, font, player_unsuccessful, window.height)
+                    start_point, summand = utils.center_text_height(pygame, font, len(player_unsuccessful), window.height)
 
-                    for line in settings["player_number_unsuccessful"]:
+                    line_counter = 0
+                    for line in player_unsuccessful:
+                        line_counter += 1
+                        if line_counter == 2:
+                            line[0] = line[0].format(settings["max_players"])
                         text = font.render(line[0], True, line[1])
-                        textpos = (utils.center_text_width(pygame, font, line[0], window.width), start_point)
+                        textpos = (utils.center_text_width(pygame, text, window.width), start_point)
                         screen.blit(text, textpos)
 
                         start_point += summand
@@ -145,3 +157,12 @@ def ask_player_number(pygame, screen, window, settings):
 
         time.sleep(0.1)
     return players_to_play
+
+def play_music(pygame, settings):
+    music = pygame.mixer.music.load(settings["music"])
+    pygame.mixer.music.play(loops=-1) # -1 is indefinitely
+    return
+
+def set_window_icon(pygame, settings):
+    icon = pygame.image.load(settings["screen_favicon"])
+    pygame.display.set_icon(icon)
