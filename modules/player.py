@@ -1,3 +1,5 @@
+from modules import check_rules
+
 import random
 
 class Event:
@@ -111,11 +113,25 @@ def update_player_dice(player, settings):
     # This updates the dices which are assigned to a player IF there not already are any
     player.current_dices = []
     # if not player.current_dices:
-    for x in range(settings["play_with_dices"]):
+    for x in range(5):
         random_number = random.randint(min(settings["dice"]), max(settings["dice"]))
         player.current_dices.append(random_number) # The number is later replaced by the image (i.e.: Dice image for 1, ...)
     print("Updated dices.")
     return
+
+def make_action(dices, want_to_do):
+    # Validates and than makes the action for a click in a box (e.g. in aces)
+
+    # dices ... the dices as list
+    # want_to_do ... the box which was selected to fill
+    print("Checking selection...")
+    rules = check_rules.check(dices)
+    if rules[want_to_do.name]:
+        want_to_do.change_value(rules[want_to_do.name])
+        return True
+    else:
+        return False
+
 
 def validate_click(event, player, all_players, settings):
     # event is the mouse click event
@@ -131,19 +147,19 @@ def validate_click(event, player, all_players, settings):
         if prgrs.position.collidepoint(click_position):
             if players_dices:
                 if point_distribution[prgrs.name]:
-                    prgrs.change_value(point_distribution[prgrs.name])
-                    player.remove_stored_dices()
-                    all_players = next_player(all_players, player)
+                    if make_action(player.current_dices, prgrs):
+                        player.remove_stored_dices()
+                        all_players = next_player(all_players, player)
 
-                    print("Switched user.")
-                    return all_players
+                        print("Switched user.")
+                        return all_players
                 else:
-                    prgrs.change_value(sum(players_dices))
-                    player.remove_stored_dices()
-                    all_players = next_player(all_players, player)
-                
-                    print("Switched user.")
-                    return all_players
+                    if make_action(player.current_dices, prgrs):
+                        player.remove_stored_dices()
+                        all_players = next_player(all_players, player)
+                    
+                        print("Switched user.")
+                        return all_players
 
 
     if player.dice_button_rect.collidepoint(click_position):

@@ -87,7 +87,6 @@ settings = {
         6: os.path.join(BASE_DIR, "data", "dice", "six.png"),
     },
 
-    "play_with_dices": 5, # With how many dices do you want to play?
 
     # This is the maximum of the dice size in height from the height in decimal percent
     # No specific specification can made because: width=height - mostly wouldn't fit with width with specification

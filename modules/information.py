@@ -14,7 +14,7 @@ class InformationPage:
 
         self.dice_section_start = self.crt_player_height # The start height of the dice section (section with only dices, not dice button included)
         self.dice_section_height = self.height * settings["dice_size_maximum"] # The height of the dice section
-        self.dices = settings["play_with_dices"] # Display n dices
+        self.dices = 5 # Display 5 dices
         self.dice_size = utils.get_dice_size(self.width, self.dice_section_height, self.dices)
 
         self.dice_button_height = self.height * settings["dice_button_height"]
