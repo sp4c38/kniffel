@@ -4,6 +4,7 @@ BASE_DIR = os.path.join(os.path.expanduser("~"), os.getcwd())
 
 
 settings = {
+    "debug": True,
 
     "window_size": (1200, 600),
     "window_resizable": True,

@@ -1,7 +1,7 @@
 # The function which takes care of drawing the information page / and updating it
 import random
 
-from modules import utils
+from lib import utils
 
 class InformationPage:
     def __init__(self, pygame, window, settings):
@@ -17,7 +17,7 @@ class InformationPage:
         # -- dice section
         class DiceField:
             def __init__(self):
-                # dice_level: There are 2 rows. One for showing the dices that you did roll and the other 
+                # dice_level: There are 2 rows. One for showing the dices that you did roll and the other
                 #             for showing the dices you selected to keep, to not roll them again.
                 self.dice_level = 0
 
@@ -33,14 +33,14 @@ class InformationPage:
         self.dice_section_height = self.height * settings["dice_size_maximum"] # The height of the dice section
         self.dice_number = 5 # Normal Kniffel rounds use 5 dices. It would not be a problem to change this number, but isn't a option in the settings file
         self.dice_size = utils.get_dice_size(self.width, self.dice_section_height, self.dice_number)
-        
+
         self.dice_showings = {} # This array includes the Images to show a certain dice number
         for x in range(min(settings["dice"]), max(settings["dice"])+1):
             image = pygame.image.load(settings["dice"][x]).convert().convert_alpha()
             self.dice_showings[x] = pygame.transform.scale(image, self.dice_size)
-        
-        self.dice_fields = [DiceField() for x in range(self.dice_number)] # Dicefields are placeholders for dice showings, a dice field can include max. one dice showing   
-        
+
+        self.dice_fields = [DiceField() for x in range(self.dice_number)] # Dicefields are placeholders for dice showings, a dice field can include max. one dice showing
+
         # -- dice button section
         self.dice_button_height = self.height * settings["dice_button_height"]
         self.dice_button_color = settings["dice_button_color"]
@@ -79,7 +79,7 @@ def draw_dice_button(pygame, screen, infopg, player, settings):
     dice_btn_text = settings["dice_button_text"]
     font_size = min([utils.get_font_by_size(pygame, spaced_size, name[0], len(dice_btn_text), settings) for name in dice_btn_text])
     font = pygame.font.Font(settings["font"], font_size)
-        
+
     start_point, summand = utils.center_obj_height(pygame, font.get_height(), len(dice_btn_text), dice_button_size[1])
 
     for name in dice_btn_text:
@@ -87,7 +87,7 @@ def draw_dice_button(pygame, screen, infopg, player, settings):
         textpos = (utils.center_obj_width(pygame, text.get_width(), 1, dice_button_size[0])[0]+player.dice_button_rect.left, player.dice_button_rect.top+start_point)
 
         screen.blit(text, textpos)
-        
+
         start_point += summand
 
     return

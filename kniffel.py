@@ -6,9 +6,9 @@ import random
 import sys
 import time
 
-from modules import window_code, draw_table, utils, player, information
+from lib import window_code, draw_table, utils, player, information
 
-from settings import settings
+from etc.settings import settings
 
 def main():
     pygame.init()
@@ -18,9 +18,9 @@ def main():
     print("Initiating window.")
     window_code.set_window_icon(pygame, settings)
     screen, window = window_code.create_window(pygame, settings)
-    # window_code.welcome_text(pygame, screen, window, user, settings) # Display a welcome text
+    #window_code.welcome_text(pygame, screen, window, user, settings) # Display a welcome text
 
-    # player_number = window_code.ask_player_number(pygame, screen, window, settings) # How many players are there?
+    #player_number = window_code.ask_player_number(pygame, screen, window, settings) # How many players are there?
     player_number = 2
 
     print("Calculating sizes.")
@@ -67,4 +67,10 @@ def main():
         time.sleep(1)
 
 if __name__ == '__main__':
-    main()
+    if settings["debug"] == True:
+        main()
+    elif settings["debug"] == False:
+        try:
+            main()
+        except:
+            print("Game interrupted.")

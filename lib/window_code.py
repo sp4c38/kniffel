@@ -1,7 +1,7 @@
 import sys
 import time
 
-from modules import utils, draw_table, information
+from lib import utils, draw_table, information
 
 class WindowClass:
     def __init__(self, width, height):
@@ -51,7 +51,7 @@ def welcome_text(pygame, screen, window, user, settings):
     # Display a welcome text
     clear_window(pygame, screen, settings)
 
-    spaced_size = (window.width*(1-settings["space_left_right"]), window.height*(1-settings["space_top_bottom"])) # The size of the window reduced to make the text look good    
+    spaced_size = (window.width*(1-settings["space_left_right"]), window.height*(1-settings["space_top_bottom"])) # The size of the window reduced to make the text look good
     print(f"Welcome {user}")
 
     welcome_text = settings["welcome_text"]
@@ -79,7 +79,7 @@ def welcome_text(pygame, screen, window, user, settings):
 
 def ask_player_number(pygame, screen, window, settings):
     clear_window(pygame, screen, settings)
-    spaced_size = (window.width*(1-settings["space_left_right"]), window.height*(1-settings["space_top_bottom"])) # The size of the window reduced to make the text look good    
+    spaced_size = (window.width*(1-settings["space_left_right"]), window.height*(1-settings["space_top_bottom"])) # The size of the window reduced to make the text look good
     print("How many players are there?")
 
     player_text_list = settings["player_number_text"]
@@ -151,7 +151,7 @@ def ask_player_number(pygame, screen, window, settings):
                         screen.blit(text, textpos)
 
                         start_point += summand
-                    
+
                     pygame.display.flip()
 
 

@@ -3,7 +3,7 @@
 
 def how_may_of(dices):
     # Find out how many values there are for a number
-    out = {1:dices.count(1), 2:dices.count(2), 3:dices.count(3), 4:dices.count(4), 
+    out = {1:dices.count(1), 2:dices.count(2), 3:dices.count(3), 4:dices.count(4),
            5:dices.count(5), 6:dices.count(6)}
     return out
 
@@ -11,8 +11,8 @@ def check(dices, settings):
     dices = sorted(dices)
     amount_of = how_may_of(dices) # Amount of times a certain number appears
 
-    validation = {"aces": False, "twos": False, "threes": False, "fours": False, "fives": False, 
-                  "sixes": False, "toak": False, "foak": False, "fh": False, "smstraight": False, 
+    validation = {"aces": False, "twos": False, "threes": False, "fours": False, "fives": False,
+                  "sixes": False, "toak": False, "foak": False, "fh": False, "smstraight": False,
                   "lgstraight": False, "kniffel": False,  "chance":  False}
 
     if amount_of[1]:

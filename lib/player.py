@@ -1,4 +1,4 @@
-from modules import check_rules
+from lib import check_rules
 
 import random
 
@@ -57,9 +57,9 @@ def recalculate_positions(pygame, players, table, infopg):
             p.update_progress(a, pygame, table, width_pointer)
 
         width_pointer += table.player_column_size[0]
-    
+
     return players
-        
+
 
 def init_players(pygame, player_amount, infopg, table, window):
     players = []
@@ -157,7 +157,7 @@ def validate_click(event, player, all_players, settings):
                     if make_action(player.current_dices, prgrs, settings):
                         player.remove_stored_dices()
                         all_players = next_player(all_players, player)
-                    
+
                         print("Switched user.")
                         return all_players
 
