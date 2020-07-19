@@ -1,16 +1,17 @@
 import os
 
-BASE_DIR = os.path.join(os.path.expanduser("~"), "computers", "code", "python", "myprograms", "kniffel")
+BASE_DIR = os.path.join(os.path.expanduser("~"), os.getcwd())
 
 
 settings = {
+
     "window_size": (1200, 600),
     "window_resizable": True,
     "bg_color": (0,0,0),
     "window_name": "Kniffel",
     "play_music": False,
 
-    "music": os.path.join(BASE_DIR, "data", "music", "calm_piano.mp3"),
+    "music": os.path.join(BASE_DIR, "assets", "music", "background_music.mp3"),
 
     "table_size": 0.70, # The size from the table of the total width in decimal percent
     "table_color": (255,255,255),
@@ -24,28 +25,23 @@ settings = {
     "detail_colum": 0.30, # in percents <- as decimal,
     "all_players_colum": 0.70,
 
-    "screen_favicon": os.path.join(BASE_DIR, "data", "favicon.jpeg"),
+    "screen_favicon": os.path.join(BASE_DIR, "assets", "window_icon.jpeg"),
     # Maximal players allowed / below 0, 0 and 1 aren't included
     "max_players": 7,
 
-    # Kniffel data
-    # "kniffel_names": [[["1er", "Alle Einsen"], ["2er", "Alle Zweien"], ["3er", "Alle Dreien"], \
-    #                    ["4er", "Alle Vieren"], ["5er", "Alle Fünfen"], ["6er","Alle Sechsen"]], \
-    #                   [["Dreierpasch","Drei gleiche Augenzahlen"], ["Viererpasch", "Vie gleiche Augenzahlen"], ["Full House", "25 Punkte"], \
-    #                    ["Small Street", "30 Punkte"], ["Big Street", "40 Punkte"], ["Kniffel", "50 Punkte"], ["Chance", "Alle Augenzahlen"]]],
     "kniffel_names": [[["", (255,255,255)], ["Aces", (243,100,255)], ["Twos", (243,100,255)], ["Threes", (243,100,255)], \
                        ["Fours", (243,100,255)], ["Fives", (243,100,255)], ["Sixes", (243,100,255)]], \
                       [["Three Of A Kind", (128,255,9)], ["Four Of A Kind", (128,255,9)], ["Full House", (128,255,9)], \
                        ["Small Straight", (128,255,9)], ["Long Straight", (128,255,9)], ["Kniffel", (17,255,0)], \
                        ["Chance", (0,255,240)]]
                      ],
-    
+
     # The text which is shown in the most top line for a player
     "player_text": ("Player {}", (255,255,255)), # No multiline allowed
     "crt_player_text": ("It's Player {}'s turn.", (255,255,255)), # The text which shows which player has the turn / No multiline allowed
 
     # ! All characters should have the same height in the font
-    "font": os.path.join(BASE_DIR, "data", "fonts", "cascadia.ttf"),
+    "font": os.path.join(BASE_DIR, "assets", "fonts", "cascadia.ttf"),
     # To make everything fit nicely, a space to the top and bottom is needed / in decimal percent
     "space_top_bottom": 0.1, # Space to top and bottom (together)
     "space_left_right": 0.1, # Space to left and right (together)
@@ -80,12 +76,12 @@ settings = {
 
     "dice": {
         # Representation of the different dice numbers as images
-        1: os.path.join(BASE_DIR, "data", "dice", "one.png"),
-        2: os.path.join(BASE_DIR, "data", "dice", "two.png"),
-        3: os.path.join(BASE_DIR, "data", "dice", "three.png"),
-        4: os.path.join(BASE_DIR, "data", "dice", "four.png"),
-        5: os.path.join(BASE_DIR, "data", "dice", "five.png"),
-        6: os.path.join(BASE_DIR, "data", "dice", "six.png"),
+        1: os.path.join(BASE_DIR, "assets", "dice_numbers", "one.png"),
+        2: os.path.join(BASE_DIR, "assets", "dice_numbers", "two.png"),
+        3: os.path.join(BASE_DIR, "assets", "dice_numbers", "three.png"),
+        4: os.path.join(BASE_DIR, "assets", "dice_numbers", "four.png"),
+        5: os.path.join(BASE_DIR, "assets", "dice_numbers", "five.png"),
+        6: os.path.join(BASE_DIR, "assets", "dice_numbers", "six.png"),
     },
 
     # This is the maximum of the dice size in height from the height in decimal percent
