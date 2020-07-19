@@ -26,7 +26,7 @@ settings = {
     "detail_colum": 0.30, # in percents <- as decimal,
     "all_players_colum": 0.70,
 
-    "screen_favicon": os.path.join(BASE_DIR, "assets", "window_icon.jpeg"),
+    "screen_favicon": os.path.join(BASE_DIR, "assets", "window_icon.png"),
     # Maximal players allowed / below 0, 0 and 1 aren't included
     "max_players": 7,
 

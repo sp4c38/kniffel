@@ -15,7 +15,7 @@ def main():
     user = getpass.getuser()
 
     # ! screen: the pygame window class / window: a own class which keeps general mesurments
-    print("Initiating window.")
+    print("Initialize window.")
     window_code.set_window_icon(pygame, settings)
     screen, window = window_code.create_window(pygame, settings)
     #window_code.welcome_text(pygame, screen, window, user, settings) # Display a welcome text
