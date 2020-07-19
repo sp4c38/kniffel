@@ -28,7 +28,7 @@ def main():
     information_page = information.get_information_page(pygame, window, settings)
 
     players = player.init_players(pygame, player_number, information_page, table, window) # A list which stores player progress information
-    
+
     if settings["play_music"]:
         window_code.play_music(pygame, settings)
 
@@ -40,7 +40,7 @@ def main():
     while True:
         window_code.clear_window(pygame, screen, settings)
 
-        events = pygame.event.get() 
+        events = pygame.event.get()
         for e in events:
             if e.type == pygame.QUIT:
                 # Quit program if the user whishes
