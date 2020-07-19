@@ -119,13 +119,13 @@ def update_player_dice(player, settings):
     print("Updated dices.")
     return
 
-def make_action(dices, want_to_do):
+def make_action(dices, want_to_do, settings):
     # Validates and than makes the action for a click in a box (e.g. in aces)
 
     # dices ... the dices as list
     # want_to_do ... the box which was selected to fill
     print("Checking selection...")
-    rules = check_rules.check(dices)
+    rules = check_rules.check(dices, settings)
     if rules[want_to_do.name]:
         want_to_do.change_value(rules[want_to_do.name])
         return True
@@ -147,14 +147,14 @@ def validate_click(event, player, all_players, settings):
         if prgrs.position.collidepoint(click_position):
             if players_dices:
                 if point_distribution[prgrs.name]:
-                    if make_action(player.current_dices, prgrs):
+                    if make_action(player.current_dices, prgrs, settings):
                         player.remove_stored_dices()
                         all_players = next_player(all_players, player)
 
                         print("Switched user.")
                         return all_players
                 else:
-                    if make_action(player.current_dices, prgrs):
+                    if make_action(player.current_dices, prgrs, settings):
                         player.remove_stored_dices()
                         all_players = next_player(all_players, player)
                     

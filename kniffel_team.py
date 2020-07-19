@@ -15,6 +15,7 @@ def main():
     user = getpass.getuser()
 
     # ! screen: the pygame window class / window: a own class which keeps general mesurments
+    print("Initiating window.")
     window_code.set_window_icon(pygame, settings)
     screen, window = window_code.create_window(pygame, settings)
     # window_code.welcome_text(pygame, screen, window, user, settings) # Display a welcome text
@@ -22,6 +23,7 @@ def main():
     # player_number = window_code.ask_player_number(pygame, screen, window, settings) # How many players are there?
     player_number = 2
 
+    print("Calculating sizes.")
     table = draw_table.get_table(window, player_number, settings) # Get table information
     information_page = information.get_information_page(pygame, window, settings)
 
@@ -42,11 +44,11 @@ def main():
         for e in events:
             if e.type == pygame.QUIT:
                 # Quit program if the user whishes
-                print("Quitting program.")
+                print("Closing program. Until next time.")
                 sys.exit(0)
             if settings["window_resizable"]:
                 if e.type == pygame.VIDEORESIZE:
-                    print("Resizing window.")
+                    print("Window resized. Recalculating sizes.")
                     screen, window, table, information_page = window_code.update_window(pygame, player_number, e, settings)
                     players = player.recalculate_positions(pygame, players, table, information_page)
             if e.type == pygame.MOUSEBUTTONDOWN:

@@ -53,15 +53,16 @@ def center_obj_height(pygame, obj_height, list_length, window_height):
     return start_point, summand
 
 def get_dice_size(width, max_height, dices):
-    # This function returns a size for each dice so that the site a doesn't overgo the maximal height definied in settings for the dice section
+    # This function returns a size for each dice so that the size a doesn't overgo the maximal height definied in settings for the dice section
     # width ... width of the information page
     # dices ... how many dices do we have
+
+    # Each dice is a square
+    # Returns as integer
 
     width_divided = width / dices
 
     if width_divided < max_height: 
-        return (width_divided, width_divided)
-    elif max_height < width_divided: 
-        return (max_height, max_height)
-    elif max_height == width_divided: 
-        return (max_height, max_height)
+        return (int(width_divided), int(width_divided))
+    elif max_height < width_divided or max_height == width_divided: 
+        return (int(max_height), int(max_height))

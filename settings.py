@@ -1,6 +1,6 @@
 import os
 
-BASE_DIR = os.path.join(os.path.expanduser("~"), "Desktop", "code", "python", "myprograms", "kniffel")
+BASE_DIR = os.path.join(os.path.expanduser("~"), "computers", "code", "python", "myprograms", "kniffel")
 
 
 settings = {
@@ -79,6 +79,7 @@ settings = {
     },
 
     "dice": {
+        # Representation of the different dice numbers as images
         1: os.path.join(BASE_DIR, "data", "dice", "one.png"),
         2: os.path.join(BASE_DIR, "data", "dice", "two.png"),
         3: os.path.join(BASE_DIR, "data", "dice", "three.png"),
@@ -86,7 +87,6 @@ settings = {
         5: os.path.join(BASE_DIR, "data", "dice", "five.png"),
         6: os.path.join(BASE_DIR, "data", "dice", "six.png"),
     },
-
 
     # This is the maximum of the dice size in height from the height in decimal percent
     # No specific specification can made because: width=height - mostly wouldn't fit with width with specification
