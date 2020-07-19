@@ -7,18 +7,24 @@ class WindowClass:
     def __init__(self, width, height):
         self.width = width
         self.height = height
-    def add_sections(self, settings):
-        if settings["table_size"] + settings["information_size"] != 1:
-            print(f"The total width of the table and the information page must be 1, but is {self.table_width+self.information_width}.")
+
+    def add_arrangement(self, settings):
+        if settings["table_ratio"] + settings["information_ratio"] != 1:
+            # Check ratios for correct sizes
+
+            print(f"\033[{settings['error_color']}mERROR:")
+            print(f"The table takes {settings['table_ratio']*100}% and the information section takes {settings['information_ratio']*100}% of the total width.\n"
+                   f"The maximal width allowed is 100%, but it's {settings['table_ratio']*100 + settings['information_ratio']*100}%.\033[0m")
+
             sys.exit(1)
-        self.table_width = self.width * settings["table_size"]
-        self.table_height = self.height
-        self.information_width = self.width * settings["information_size"]
+
+        self.table_width = self.width * settings["table_ratio"]
+        self.information_width = self.width * settings["information_ratio"]
 
 def update_window(pygame, player_number, event, settings):
     new_size = event.size
     window = WindowClass(new_size[0], new_size[1])
-    window.add_sections(settings)
+    window.add_arrangement(settings)
     screen = pygame.display.set_mode((window.width, window.height), pygame.RESIZABLE)
     screen.fill(settings["bg_color"])
     table = draw_table.get_table(window, player_number, settings)
@@ -29,7 +35,7 @@ def update_window(pygame, player_number, event, settings):
 def create_window(pygame, settings):
 
     window = WindowClass(settings["window_size"][0], settings["window_size"][1])
-    window.add_sections(settings)
+    window.add_arrangement(settings)
     # Load the window and create it
 
     print(f"Creating window with size {window.width} x {window.height}")

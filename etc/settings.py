@@ -5,6 +5,15 @@ BASE_DIR = os.path.join(os.path.expanduser("~"), os.getcwd())
 
 settings = {
     "debug": True,
+    "error_color": 91, # The ANSI color code to highlight errors in the program output
+
+    "table_ratio": 0.70,            # Ratio of the table section to the total width
+                                    # Number in percent, must < 1
+
+    "information_ratio": 0.30,      # Ratio of the information section to the total width
+                                    # Number in percent, must < 1
+
+
 
     "window_size": (1200, 600),
     "window_resizable": True,
@@ -14,13 +23,11 @@ settings = {
 
     "music": os.path.join(BASE_DIR, "assets", "music", "background_music.mp3"),
 
-    "table_size": 0.70, # The size from the table of the total width in decimal percent
     "table_color": (255,255,255),
     "table_line_thickness": 3,
     "section_line_thickness": 5,
     "table_value_color": (255,255,255), # The color of entries/values in the table
 
-    "information_size": 0.30, # The size of the information section of the total width in decimal percent
 
     # The portions in percent as decimal of the width of certain sections of the width from the table
     "detail_colum": 0.30, # in percents <- as decimal,

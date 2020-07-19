@@ -86,7 +86,7 @@ def get_table(window, player_amount, settings):
             self.thicknesshalf = self.thickness/2
             self.sectionthickness = settings["section_line_thickness"] # The thickness of the section line which divides sections
             self.width = window.table_width - self.thickness
-            self.height = window.table_height
+            self.height = window.height
         def add_column_sizes(self):
             if settings["detail_colum"] + settings["all_players_colum"] != 1:
                 print(f"All columns of the table together to not sum up as 1, but as {settings['detail_colum'] + settings['all_players_colum']}.")
