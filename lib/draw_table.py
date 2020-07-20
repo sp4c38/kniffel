@@ -25,10 +25,10 @@ def draw_detail_column(pygame, screen, settings, table):
         font = pygame.font.Font(settings["font"], font_size)
 
         for name in section:
-            start_point, summand = utils.center_obj_height(pygame, font.get_height(), 1, detail_column_cell_size[1])
+            start_point, summand = utils.center_obj_height(font.get_height(), 1, detail_column_cell_size[1])
 
             text = font.render(name[0], True, name[1])
-            textpos = (utils.center_obj_width(pygame, text.get_width(), 1, detail_column_cell_size[0])[0], height_pointer+start_point)
+            textpos = (utils.center_obj_width(text.get_width(), 1, detail_column_cell_size[0])[0], height_pointer+start_point)
             screen.blit(text, textpos)
             start_point += summand
 
@@ -54,10 +54,10 @@ def draw_player_columns(pygame, screen, table, settings):
 
         font = pygame.font.Font(settings["font"], font_size)
 
-        start_point, summand = utils.center_obj_height(pygame, font.get_height(), 1, table.height_divided_parts)
+        start_point, summand = utils.center_obj_height(font.get_height(), 1, table.height_divided_parts)
 
         text = font.render(player_text[0].format(player_indent), True, player_text[1])
-        textpos = (utils.center_obj_width(pygame, text.get_width(), 1, table.player_column_size[0])[0]+width_pointer, start_point)
+        textpos = (utils.center_obj_width(text.get_width(), 1, table.player_column_size[0])[0]+width_pointer, start_point)
         screen.blit(text, textpos)
         start_point += summand
 

@@ -38,14 +38,14 @@ def create_window(pygame, settings):
     window.add_arrangement(settings)
     # Load the window and create it
 
-    print(f"Creating window with size {window.width} x {window.height}")
-
     screen = pygame.display.set_mode((window.width, window.height))
 
-    pygame.display.set_caption(settings["window_name"])
+    pygame.display.set_caption(settings["window_name"]) # Set a window caption
 
     screen.fill(settings["bg_color"])
-    pygame.display.flip()
+    pygame.display.flip() # Update the window
+
+    print(f"Created window with size {window.width}px x {window.height}px!")
 
     return screen, window
 
@@ -55,30 +55,37 @@ def clear_window(pygame, screen, settings):
 
 def welcome_text(pygame, screen, window, user, settings):
     # Display a welcome text
+
     clear_window(pygame, screen, settings)
 
     spaced_size = (window.width*(1-settings["space_left_right"]), window.height*(1-settings["space_top_bottom"])) # The size of the window reduced to make the text look good
-    print(f"Welcome {user}")
 
     welcome_text = settings["welcome_text"]
 
-    font_size = min([utils.get_font_by_size(pygame, spaced_size, line[0], len(welcome_text), settings) for line in welcome_text]) # Take the font size for the text with the smallest one -> that it looks nice
+    font_size = min([utils.get_font_by_size(pygame, spaced_size, line[0], len(welcome_text), settings) for line in welcome_text])
     font = pygame.font.Font(settings["font"], font_size)
 
-    start_point, summand = utils.center_text_height(pygame, font, len(welcome_text), window.height)
+    start_height, spacing = utils.center_obj_height(font.size(welcome_text[0][0])[1], len(welcome_text), window.height)
 
-    line_indicator = 0
+    line_counter = 1
     for line in welcome_text:
-        line_indicator += 1
-        if line_indicator == 1:
+        if line_counter == 1: # For personal greeting insert the user name
             line[0] = line[0].format(user)
+
         text = font.render(line[0], True, line[1])
-        textpos = (utils.center_text_width(pygame, text, window.width), start_point)
-        screen.blit(text, textpos)
+        textpos = (utils.center_obj_width(font.size(line[0])[0], 1, window.width)[0], start_height) # The position of the text
+        print(textpos)
+        print(spaced_size)
+        screen.blit(text, textpos) # Add the text to the screen at textpos
 
-        start_point += summand
+        start_height += spacing # Increase start_height for the next line
+        line_counter += 1
 
-    pygame.display.flip()
+
+    for x in range(2): # Must do 2 times cause of some weird pygame bug
+        pygame.event.get()
+        pygame.display.flip()
+
     time.sleep(5)
 
     return

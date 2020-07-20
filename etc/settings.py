@@ -13,9 +13,11 @@ settings = {
     "information_ratio": 0.30,      # Ratio of the information section to the total width
                                     # Number in percent, must < 1
 
+    "window_size": (1400, 800),     # The size of the default window size in format (width, height)
+    "welcome_text": [["Welcome {},", (255,255,255)], ["Let's play Kniffel!", (255,255,255)]], # Text for welcome screen
 
 
-    "window_size": (1200, 600),
+
     "window_resizable": True,
     "bg_color": (0,0,0),
     "window_name": "Kniffel",
@@ -55,7 +57,6 @@ settings = {
     "space_left_right": 0.1, # Space to left and right (together)
 
     # The text as array -> first value is the text and the second the color of the texts
-    "welcome_text": [["Welcome {},", (255,255,255)], ["Let's play Kniffel!", (255,255,255)]],
     "player_number_text": [["How many players want to play?", (255,255,255)], \
                            ["Please press the number on the keyboard. (max. {})", (255,255,255)], \
                           ],

@@ -80,11 +80,11 @@ def draw_dice_button(pygame, screen, infopg, player, settings):
     font_size = min([utils.get_font_by_size(pygame, spaced_size, name[0], len(dice_btn_text), settings) for name in dice_btn_text])
     font = pygame.font.Font(settings["font"], font_size)
 
-    start_point, summand = utils.center_obj_height(pygame, font.get_height(), len(dice_btn_text), dice_button_size[1])
+    start_point, summand = utils.center_obj_height(font.get_height(), len(dice_btn_text), dice_button_size[1])
 
     for name in dice_btn_text:
         text = font.render(name[0], True, name[1])
-        textpos = (utils.center_obj_width(pygame, text.get_width(), 1, dice_button_size[0])[0]+player.dice_button_rect.left, player.dice_button_rect.top+start_point)
+        textpos = (utils.center_obj_width(text.get_width(), 1, dice_button_size[0])[0]+player.dice_button_rect.left, player.dice_button_rect.top+start_point)
 
         screen.blit(text, textpos)
 
@@ -102,8 +102,8 @@ def draw_current_player_text(pygame, screen, infopg, player, settings):
     font = pygame.font.Font(settings["font"], font_size)
     text = font.render(crt_player_text[0], True, crt_player_text[1])
 
-    height_pos = utils.center_obj_height(pygame, font.get_height(), 1, crt_player_text_size[1])[0]+infopg.crt_player_start
-    width_pos = utils.center_obj_width(pygame, text.get_width(), 1, crt_player_text_size[0])[0]+infopg.start_width
+    height_pos = utils.center_obj_height(font.get_height(), 1, crt_player_text_size[1])[0]+infopg.crt_player_start
+    width_pos = utils.center_obj_width(text.get_width(), 1, crt_player_text_size[0])[0]+infopg.start_width
 
     screen.blit(text, (width_pos, height_pos))
 

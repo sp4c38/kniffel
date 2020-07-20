@@ -18,8 +18,10 @@ def main():
     print("Initialize window.")
     window_code.set_window_icon(pygame, settings)
     screen, window = window_code.create_window(pygame, settings)
-    #window_code.welcome_text(pygame, screen, window, user, settings) # Display a welcome text
 
+    #import IPython;IPython.embed();import sys;sys.exit()
+    window_code.welcome_text(pygame, screen, window, user, settings) # Display a welcome text
+    sys.exit()
     #player_number = window_code.ask_player_number(pygame, screen, window, settings) # How many players are there?
     player_number = 2
 
@@ -64,7 +66,8 @@ def main():
 
         pygame.display.flip()
 
-        time.sleep(1)
+        time.sleep(0.1)
+
 
 if __name__ == '__main__':
     if settings["debug"] == True:
