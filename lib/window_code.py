@@ -8,6 +8,9 @@ class WindowClass:
         self.width = width
         self.height = height
 
+    def add_player_number(self, player_num):
+        self.player_number = player_num
+
     def add_arrangement(self, settings):
         if settings["table_ratio"] + settings["information_ratio"] != 1:
             # Check ratios for correct sizes
@@ -120,7 +123,6 @@ def ask_player_number(pygame, screen, window, settings):
 
                 if event.unicode in [str(x) for x in range(settings["max_players"]+1) if not x in [0, 1]]:
                     players_to_play = int(event.unicode)
-                    print(f"{players_to_play} players want to play.")
                     player_state = settings["player_number_successful"]
                     is_successful = True
                 else:

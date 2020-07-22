@@ -27,6 +27,22 @@ settings = {
     # A message displayed when the player number selection was successful
     "player_number_successful": [["Cool,", (255,255,255)], ["there are {} players.", (255,255,255)]],
 
+    "table_line_color": (255,255,255), # The color of the lines which make up the table
+    "table_line_thickness": 5, # The thickness of the lines which make up the table
+
+    # Both must sum up to 1 (100%):
+    "table_name_section": 0.30, # The percentage of the total table width for the column with the names of the goals (e.g. Aces, Twos)
+    "table_all_player_section": 0.70, # The percentage of the total table width for all columns which contain the reached points of all players
+
+    # The names of the goals to achive by the players
+    "table_names": [
+                      [["", (255,255,255)], ["Aces", (243,100,255)], ["Twos", (243,100,255)], ["Threes", (243,100,255)], \
+                       ["Fours", (243,100,255)], ["Fives", (243,100,255)], ["Sixes", (243,100,255)]], \
+                      [["Three Of A Kind", (128,255,9)], ["Four Of A Kind", (128,255,9)], ["Full House", (128,255,9)], \
+                       ["Small Straight", (128,255,9)], ["Long Straight", (128,255,9)], ["Kniffel", (17,255,0)], \
+                       ["Chance", (0,255,240)]]
+                     ],
+
 
     "window_resizable": True,
     "bg_color": (0,0,0),
@@ -35,25 +51,14 @@ settings = {
 
     "music": os.path.join(BASE_DIR, "assets", "music", "background_music.mp3"),
 
-    "table_color": (255,255,255),
-    "table_line_thickness": 3,
-    "section_line_thickness": 5,
+
     "table_value_color": (255,255,255), # The color of entries/values in the table
 
 
     # The portions in percent as decimal of the width of certain sections of the width from the table
-    "detail_colum": 0.30, # in percents <- as decimal,
-    "all_players_colum": 0.70,
 
     "screen_favicon": os.path.join(BASE_DIR, "assets", "window_icon.png"),
     # Maximal players allowed / below 0, 0 and 1 aren't included
-
-    "kniffel_names": [[["", (255,255,255)], ["Aces", (243,100,255)], ["Twos", (243,100,255)], ["Threes", (243,100,255)], \
-                       ["Fours", (243,100,255)], ["Fives", (243,100,255)], ["Sixes", (243,100,255)]], \
-                      [["Three Of A Kind", (128,255,9)], ["Four Of A Kind", (128,255,9)], ["Full House", (128,255,9)], \
-                       ["Small Straight", (128,255,9)], ["Long Straight", (128,255,9)], ["Kniffel", (17,255,0)], \
-                       ["Chance", (0,255,240)]]
-                     ],
 
     # The text which is shown in the most top line for a player
     "player_text": ("Player {}", (255,255,255)), # No multiline allowed

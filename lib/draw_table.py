@@ -46,7 +46,7 @@ def draw_player_columns(pygame, screen, table, settings):
     player_cell_size = (table.player_column_size[0], table.height_divided_parts)
     spaced_size = (table.player_column_size[0]*(1-settings["space_left_right"]), table.height_divided_parts*(1-settings["space_top_bottom"]))
 
-    for p in range(table.player_amount):
+    for p in range(table.player_number):
         player_indent += 1
         player_text = settings["player_text"]
 
@@ -76,37 +76,43 @@ def draw(pygame, screen, table, settings):
 
     return
 
-def get_table(window, player_amount, settings):
-    # Calculate and draw the table
-    class Table:
-        def __init__(self):
-            self.player_amount = player_amount
-            self.color = settings["table_color"]
-            self.thickness = settings["table_line_thickness"]
-            self.thicknesshalf = self.thickness/2
-            self.sectionthickness = settings["section_line_thickness"] # The thickness of the section line which divides sections
-            self.width = window.table_width - self.thickness
-            self.height = window.height
-        def add_column_sizes(self):
-            if settings["detail_colum"] + settings["all_players_colum"] != 1:
-                print(f"All columns of the table together to not sum up as 1, but as {settings['detail_colum'] + settings['all_players_colum']}.")
-                print("Aborting.")
-                sys.exit(1)
-            self.detail_column_size = (self.width * settings["detail_colum"], self.height) # The size of the detail column
-            self.player_column_size = ((self.width * settings["all_players_colum"]) / self.player_amount, self.height) # The size of one player column
-            x = 0
-            # Get the number of arrays in array
-            for s in settings["kniffel_names"]:
-                for e in s:
-                    x += 1
-            if x == 0:
-                print("At least one division in parts is required (in height).")
-                sys.exit(1)
-            self.height_divided_parts = self.height / x # The size of one part in which the height is divided (each line)
+class Table:
+    def __init__(self, window, player_number, settings):
+        self.player_number = player_number
+        self.color = settings["table_line_color"]
+        self.thickness = settings["table_line_thickness"]
+        self.thicknesshalf = self.thickness/2
+        self.width = window.table_width - self.thickness
+        self.height = window.height
 
+    def add_column_sizes(self, settings):
+        if settings["table_name_section"] + settings["table_all_player_section"] != 1:
+            print(f"\033[{settings['error_color']}mERROR:")
+            print(f"The column in the table with the names of the goals takes {settings['table_name_section']*100}% and the"
+                  f"all columns which show how many points single players accomplished take {settings['table_all_player_section']*100}%.\n"
+                  f"The maximal width allowed for the table is 100%, but it's {settings['table_name_section']*100 + settings['table_all_player_section']*100}%.\033[0m")
+            sys.exit(1)
 
-    table = Table()
-    table.add_column_sizes()
+        self.detail_column_size = (self.width * settings["table_name_section"], self.height) # The size of the column with names (e.g. Aces, Twos)
+        self.one_player_column = ((self.width * settings["table_all_player_section"]) / self.player_number, self.height) # The size of a column for one single player
+
+        # Check if there is the correct amount of names for the achievements
+        counter = 0
+
+        for section in settings["table_names"]:
+            for achievement in section:
+                counter += 1
+        if counter < 14 or counter > 14:
+            print(f"\033[{settings['error_color']}mERROR:")
+            print(f"There are too many or too less names for the achievements. There are {counter}.")
+            sys.exit(1)
+        self.one_line_height = self.height / counter # The height of one single line in the table
+
+def get_table(window, player_number, settings):
+    # Init the Table class with important attributes for drawing the table later
+
+    table = Table(window, player_number, settings)
+    table.add_column_sizes(settings)
 
     return table
 

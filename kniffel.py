@@ -11,24 +11,33 @@ from lib import window_code, draw_table, utils, player, information
 from etc.settings import settings
 
 def main():
+    verbose = False
+
+    if "-v" in sys.argv:
+        # When verbose output is enabled extra information about the game are outputed
+        verbose = True
+
     pygame.init()
     user = getpass.getuser()
 
-    # ! screen: the pygame window class / window: a own class which keeps general mesurments
-    print("Initialize window.")
     window_code.set_window_icon(pygame, settings)
+
+    # screen: the pygame window class / window: a own class which keeps general measurements
     screen, window = window_code.create_window(pygame, settings)
+    if verbose: print("Initialized the window.")
 
     #window_code.welcome_text(pygame, screen, window, user, settings) # Display a welcome text
 
-    player_number = window_code.ask_player_number(pygame, screen, window, settings) # How many players are there?
+    #player_number = window_code.ask_player_number(pygame, screen, window, settings) # How many players are there?
     player_number = 2
-    sys.exit()
-    print("Calculating sizes.")
-    table = draw_table.get_table(window, player_number, settings) # Get table information
-    information_page = information.get_information_page(pygame, window, settings)
+    window.add_player_number(player_number)
+    if verbose: print(f"{player_number} players are going to play Kniffel!")
 
-    players = player.init_players(pygame, player_number, information_page, table, window) # A list which stores player progress information
+    table_sec = draw_table.get_table(window, player_number, settings) # Get table class (with table attributes)
+    information_sec = information.get_information_page(pygame, window, settings)
+    if verbose: print("Calculated table and information section sizes.")
+
+    players = player.init_players(pygame, player_number, information_sec, table_sec, window) # A list which stores player progress information
 
     if settings["play_music"]:
         window_code.play_music(pygame, settings)
@@ -50,8 +59,8 @@ def main():
             if settings["window_resizable"]:
                 if e.type == pygame.VIDEORESIZE:
                     print("Window resized. Recalculating sizes.")
-                    screen, window, table, information_page = window_code.update_window(pygame, player_number, e, settings)
-                    players = player.recalculate_positions(pygame, players, table, information_page)
+                    screen, window, table_sec, information_sec = window_code.update_window(pygame, player_number, e, settings)
+                    players = player.recalculate_positions(pygame, players, table_sec, information_sec)
             if e.type == pygame.MOUSEBUTTONDOWN:
                 if e.button == 1: # A left-click on the mouse
                     # This changes the value of a event of the player, if it's valid
@@ -59,9 +68,9 @@ def main():
                     players = player.validate_click(e, current_player, players, settings)
                     current_player = player.get_current_player(players)
 
-        draw_table.draw(pygame, screen, table, settings)
+        draw_table.draw(pygame, screen, table_sec, settings)
         draw_table.draw_achievement(pygame, screen, players, settings)
-        information.draw(pygame, screen, information_page, current_player, settings)
+        information.draw(pygame, screen, information_sec, current_player, settings)
 
         pygame.display.flip()
 
