@@ -82,7 +82,7 @@ def welcome_text(pygame, screen, window, user, settings):
         line_counter += 1
 
 
-    for x in range(2): # Must do 2 times cause of some weird pygame bug
+    for x in range(2): # Must do 2 times because of a pygame problem on macos
         pygame.event.get()
         pygame.display.flip()
 
@@ -92,80 +92,68 @@ def welcome_text(pygame, screen, window, user, settings):
 
 def ask_player_number(pygame, screen, window, settings):
     clear_window(pygame, screen, settings)
-    spaced_size = (window.width*(1-settings["space_left_right"]), window.height*(1-settings["space_top_bottom"])) # The size of the window reduced to make the text look good
-    print("How many players are there?")
 
-    player_text_list = settings["player_number_text"]
+    spaced_size = (window.width*(1-settings["space_left_right"]), window.height*(1-settings["space_top_bottom"]))
 
-    font_size = min([utils.get_font_by_size(pygame, spaced_size, line[0], len(player_text_list), settings) for line in player_text_list]) # Take the font size for the text with the smallest one -> that it looks nice
+    player_text = settings["player_number_text"]
+
+    font_size = min([utils.get_font_by_size(pygame, spaced_size, line[0], len(player_text), settings) for line in player_text])
     font = pygame.font.Font(settings["font"], font_size)
 
-    start_point, summand = utils.center_text_height(pygame, font, len(player_text_list), window.height)
+    start_point, spacing = utils.center_obj_height(font.size(player_text[0][0])[1], len(player_text), window.height)
 
-    line_counter = 0
-    for line in player_text_list:
-        line_counter += 1
-        if line_counter == 2:
-            line[0] = line[0].format(settings["max_players"])
+    for line in player_text:
+        line[0] = line[0].format(settings["max_players"])
         text = font.render(line[0], True, line[1])
-        textpos = (utils.center_text_width(pygame, text, window.width), start_point)
+        textpos = (utils.center_obj_width(font.size(line[0])[0], 1, window.width)[0], start_point)
 
         screen.blit(text, textpos)
 
-        start_point += summand
+        start_point += spacing
 
     pygame.display.flip()
-    player_number_found = False
+    is_successful = False
 
-    while not player_number_found:
+    while not is_successful:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
 
                 if event.unicode in [str(x) for x in range(settings["max_players"]+1) if not x in [0, 1]]:
                     players_to_play = int(event.unicode)
-                    player_number_found = True
-                    print(f"{players_to_play} players are playing.")
-                    player_successful = settings["player_number_successful"]
-                    font_size = min([utils.get_font_by_size(pygame, spaced_size, line[0], len(player_successful), settings) for line in player_successful]) # Take the font size for the text with the smallest one -> that it looks nice
-                    font = pygame.font.Font(settings["font"], font_size)
-
-                    clear_window(pygame, screen, settings)
-                    pygame.display.flip()
-
-                    start_point, summand = utils.center_text_height(pygame, font, len(player_successful), window.height)
-
-                    for line in settings["player_number_successful"]:
-                        text = font.render(line[0].format(players_to_play), True, line[1])
-                        textpos = (utils.center_text_width(pygame, text, window.width), start_point)
-                        screen.blit(text, textpos)
-                        pygame.display.flip()
-
-                        start_point += summand
-
-                    time.sleep(3)
-
+                    print(f"{players_to_play} players want to play.")
+                    player_state = settings["player_number_successful"]
+                    is_successful = True
                 else:
-                    player_unsuccessful = settings["player_number_unsuccessful"]
-                    font_size = min([utils.get_font_by_size(pygame, spaced_size, line[0], len(player_unsuccessful), settings) for line in settings["player_number_unsuccessful"]]) # Take the font size for the text with the smallest one -> that it looks nice
-                    font = pygame.font.Font(settings["font"], font_size)
+                    player_state = settings["player_number_unsuccessful"]
+                    is_successful = False
 
-                    clear_window(pygame, screen, settings)
+                font_size = min([utils.get_font_by_size(pygame, spaced_size, line[0], len(player_state), settings) for line in player_state])
+                font = pygame.font.Font(settings["font"], font_size)
+
+                clear_window(pygame, screen, settings)
+
+                start_point, spacing = utils.center_obj_height(font.size(player_state[0][0])[1], len(player_state), window.height)
+
+                for line in player_state:
+                    if is_successful:
+                        text = font.render(line[0].format(players_to_play), True, line[1])
+                    elif not is_successful:
+                        text = font.render(line[0].format(settings["max_players"]), True, line[1])
+
+                    textpos = (utils.center_obj_width(font.size(line[0])[0], 1, window.width)[0], start_point)
+                    screen.blit(text, textpos)
+
+
+                    start_point += spacing
+
+                for x in range(2): # Must do 2 times because of a pygame problem on macos
+                    pygame.event.get()
                     pygame.display.flip()
 
-                    start_point, summand = utils.center_text_height(pygame, font, len(player_unsuccessful), window.height)
-
-                    line_counter = 0
-                    for line in player_unsuccessful:
-                        line_counter += 1
-                        if line_counter == 2:
-                            line[0] = line[0].format(settings["max_players"])
-                        text = font.render(line[0], True, line[1])
-                        textpos = (utils.center_text_width(pygame, text, window.width), start_point)
-                        screen.blit(text, textpos)
-
-                        start_point += summand
-
-                    pygame.display.flip()
+                if is_successful:
+                    time.sleep(4)
+                elif not is_successful:
+                    time.sleep(settings["update_time"])
 
 
         time.sleep(0.1)

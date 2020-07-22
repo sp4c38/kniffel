@@ -19,12 +19,11 @@ def main():
     window_code.set_window_icon(pygame, settings)
     screen, window = window_code.create_window(pygame, settings)
 
-    #import IPython;IPython.embed();import sys;sys.exit()
-    window_code.welcome_text(pygame, screen, window, user, settings) # Display a welcome text
-    sys.exit()
-    #player_number = window_code.ask_player_number(pygame, screen, window, settings) # How many players are there?
-    player_number = 2
+    #window_code.welcome_text(pygame, screen, window, user, settings) # Display a welcome text
 
+    player_number = window_code.ask_player_number(pygame, screen, window, settings) # How many players are there?
+    player_number = 2
+    sys.exit()
     print("Calculating sizes.")
     table = draw_table.get_table(window, player_number, settings) # Get table information
     information_page = information.get_information_page(pygame, window, settings)
@@ -66,7 +65,7 @@ def main():
 
         pygame.display.flip()
 
-        time.sleep(0.1)
+        time.sleep(settings["update_time"])
 
 
 if __name__ == '__main__':
