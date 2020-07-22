@@ -5,6 +5,8 @@ BASE_DIR = os.path.join(os.path.expanduser("~"), os.getcwd())
 
 settings = {
     "debug": True,
+    "update_time": 0.1, # In which interval the window shall update (in seconds) (one update every 0.1 second would be 10 fps)
+
     "error_color": 91, # The ANSI color code to highlight errors in the program output
 
     "table_ratio": 0.70,            # Ratio of the table section to the total width
@@ -16,6 +18,14 @@ settings = {
     "window_size": (1400, 800),     # The size of the default window size in format (width, height)
     "welcome_text": [["Welcome {},", (255,255,255)], ["Let's play Kniffel!", (255,255,255)]], # Text for welcome screen
 
+    # A text displayed to ask how many players want to play kniffel
+    "player_number_text": [["How many players want to play?", (255,255,255)], \
+                           ["Please press the number on the keyboard. (max. {})", (255,255,255)], \
+                          ],
+
+    "max_players": 6, # The maximal amount of players allowed to play
+    # A message displayed when the player number selection was successful
+    "player_number_successful": [["Cool,", (255,255,255)], ["there are {} players.", (255,255,255)]],
 
 
     "window_resizable": True,
@@ -37,7 +47,6 @@ settings = {
 
     "screen_favicon": os.path.join(BASE_DIR, "assets", "window_icon.png"),
     # Maximal players allowed / below 0, 0 and 1 aren't included
-    "max_players": 7,
 
     "kniffel_names": [[["", (255,255,255)], ["Aces", (243,100,255)], ["Twos", (243,100,255)], ["Threes", (243,100,255)], \
                        ["Fours", (243,100,255)], ["Fives", (243,100,255)], ["Sixes", (243,100,255)]], \
@@ -57,11 +66,6 @@ settings = {
     "space_left_right": 0.1, # Space to left and right (together)
 
     # The text as array -> first value is the text and the second the color of the texts
-    "player_number_text": [["How many players want to play?", (255,255,255)], \
-                           ["Please press the number on the keyboard. (max. {})", (255,255,255)], \
-                          ],
-
-    "player_number_successful": [["Great,", (255,255,255)], ["there are {} players.", (255,255,255)]],
     "player_number_unsuccessful": [["Sorry, this doesn't work. Please try again", (255,255,255)],
                                    ["A maximum of {} players can play.", (255,255,255)]
                                   ],
