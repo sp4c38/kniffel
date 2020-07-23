@@ -18,3 +18,6 @@ There are multiple different combinations which you have to reach to win the gam
 
 For futher explanation see [this Wikipedia article.](https://en.wikipedia.org/wiki/Yahtzee)
 
+## Prerequisites
+- pygame 1.9.6 is required
+- python 3.7 is required because pygame doesn't currently run on newer versions
