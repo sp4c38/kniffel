@@ -10,13 +10,17 @@ settings = {
     "error_color": 91, # The ANSI color code to highlight errors in the program output
 
     "window_resizable": True, # Activate or deactivate window resizable option
+    "window_icon": os.path.join(BASE_DIR, "assets", "window_icon.png"), # The icon of the game
+    "window_size": (1400, 800),     # The size of the default window size in (width, height)
+    "window_name": "Kniffel Yahtzee", # The name of the window
+
+
     "table_ratio": 0.70,            # Ratio of the table section to the total width
                                     # Number in percent, must < 1
 
     "information_ratio": 0.30,      # Ratio of the information section to the total width
                                     # Number in percent, must < 1
 
-    "window_size": (1400, 800),     # The size of the default window size in format (width, height)
     "welcome_text": [["Welcome {},", (255,255,255)], ["Let's play Kniffel!", (255,255,255)]], # Text for welcome screen
 
     # A text displayed to ask how many players want to play kniffel
@@ -59,20 +63,17 @@ settings = {
     "dice_button_color": (242,255,5), # The background color of the dice button
     "dice_button_text": [["Roll The Dice", (139,69,19)]], # The text for the dice button
 
+    "play_music": False, # Activate or deactivate background music
+    "window_music": os.path.join(BASE_DIR, "assets", "music", "background_music.mp3"), # Background music path
+
 
     "bg_color": (0,0,0),
-    "window_name": "Kniffel",
-    "play_music": False,
-
-    "music": os.path.join(BASE_DIR, "assets", "music", "background_music.mp3"),
 
 
     "table_value_color": (255,255,255), # The color of entries/values in the table
 
 
     # The portions in percent as decimal of the width of certain sections of the width from the table
-
-    "screen_favicon": os.path.join(BASE_DIR, "assets", "window_icon.png"),
     # Maximal players allowed / below 0, 0 and 1 aren't included
 
     # The text which is shown in the most top line for a player

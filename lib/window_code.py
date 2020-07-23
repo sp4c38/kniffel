@@ -8,9 +8,6 @@ class WindowClass:
         self.width = width
         self.height = height
 
-    def add_player_number(self, player_num):
-        self.player_number = player_num
-
     def add_arrangement(self, settings):
         if settings["table_ratio"] + settings["information_ratio"] != 1:
             # Check ratios for correct sizes
@@ -24,16 +21,19 @@ class WindowClass:
         self.table_width = self.width * settings["table_ratio"]
         self.information_width = self.width * settings["information_ratio"]
 
-def update_window(pygame, player_number, event, settings):
+def resize_window(pygame, player_number, event, settings):
     new_size = event.size
     window = WindowClass(new_size[0], new_size[1])
     window.add_arrangement(settings)
+    import IPython;IPython.embed();import sys;sys.exit()
     screen = pygame.display.set_mode((window.width, window.height), pygame.RESIZABLE)
-    screen.fill(settings["bg_color"])
-    table = draw_table.get_table(window, player_number, settings)
-    information_page = information.get_information_page(pygame, window, settings)
 
-    return screen, window, table, information_page
+    table_sec = draw_table.get_table(window, player_number, settings)
+    information_sec = information.get_information_page(pygame, window, settings)
+
+    screen.fill(settings["bg_color"])
+
+    return screen, window, table_sec, information_sec
 
 def create_window(pygame, settings):
 
@@ -160,10 +160,13 @@ def ask_player_number(pygame, screen, window, settings):
     return players_to_play
 
 def play_music(pygame, settings):
-    music = pygame.mixer.music.load(settings["music"])
-    pygame.mixer.music.play(loops=-1) # -1 is indefinitely
+    music = pygame.mixer.music.load(settings["window_music"]) # Load music
+    pygame.mixer.music.play(loops=-1) # Start playing / -1 is indefinitely
+
     return
 
 def set_window_icon(pygame, settings):
-    icon = pygame.image.load(settings["screen_favicon"])
-    pygame.display.set_icon(icon)
+    icon = pygame.image.load(settings["window_icon"]) # Load window icon
+    pygame.display.set_icon(icon) # Activate window icon
+
+    return
