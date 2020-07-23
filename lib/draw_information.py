@@ -3,52 +3,52 @@ import random
 
 from lib import utils
 
-class InformationPage:
+class Information:
     def __init__(self, pygame, window, settings):
-        # -- main information
-        self.start_width = window.table_width # The start width is after the table_width ends
+        self.start_width = window.table_width # The width from which on the information section starts (because table section comes before)
         self.width = window.information_width
         self.height = window.height
 
-        # -- current player section
-        self.crt_player_start = 0 # The start height of the current player text
-        self.crt_player_height = self.height * settings["crt_player_height"]
+        self.crt_player_height = self.height * settings["crt_player_section_height"] # The percentage of the total height for the section which displays which player currently has the turn
 
-        # -- dice section
         class DiceField:
+            # This class is created and stored for each single dice to control there level, image and position
             def __init__(self):
-                # dice_level: There are 2 rows. One for showing the dices that you did roll and the other
-                #             for showing the dices you selected to keep, to not roll them again.
+                # In Kniffel you can roll the dice and than put aside some of the rolled dices
+                # When dices are put aside they must be drawn in an extra row
+                # To indicate in which row the dice currently is dice_level is used.
+                # 0 means that it can be rolled again and 1 means that it was put aside
                 self.dice_level = 0
 
             def set_dice_image(self, dice_image):
                 self.dice_image = dice_image
             def set_position(self, position):
-                # This attribute is set when the Dice Field is beeing drawed
                 self.position = position
             def change_dice_level(self, dice_level):
                 self.dice_level = dice_level
 
-        self.dice_section_start = self.crt_player_height # The start height of the dice section (section with only dices, not dice button included)
+        self.dice_section_start = self.crt_player_height # The start height of the dice section (needed because current player section is before)
         self.dice_section_height = self.height * settings["dice_size_maximum"] # The height of the dice section
-        self.dice_number = 5 # Normal Kniffel rounds use 5 dices. It would not be a problem to change this number, but isn't a option in the settings file
+        self.dice_number = 5 # Normal Kniffel rounds use 5 dices. You could change this number without any errors.
         self.dice_size = utils.get_dice_size(self.width, self.dice_section_height, self.dice_number)
 
-        self.dice_showings = {} # This array includes the Images to show a certain dice number
-        for x in range(min(settings["dice"]), max(settings["dice"])+1):
-            image = pygame.image.load(settings["dice"][x]).convert().convert_alpha()
-            self.dice_showings[x] = pygame.transform.scale(image, self.dice_size)
+        self.dice_images = {} # The images for the different possibilities to throw the dice
 
-        self.dice_fields = [DiceField() for x in range(self.dice_number)] # Dicefields are placeholders for dice showings, a dice field can include max. one dice showing
+        for img_index in range(min(settings["dice_images"]), max(settings["dice_images"])+1):
+            image = pygame.image.load(settings["dice_images"][img_index]).convert().convert_alpha()
+            self.dice_images[img_index] = pygame.transform.scale(image, self.dice_size)
 
-        # -- dice button section
+        self.dice_fields = [DiceField() for x in range(self.dice_number)]
+
         self.dice_button_height = self.height * settings["dice_button_height"]
         self.dice_button_color = settings["dice_button_color"]
 
 
 
-def get_information_page(pygame, window, settings):
-    infopg = InformationPage(pygame, window, settings)
+def get_information(pygame, window, settings):
+    # Init the Information class with important attributes for drawing the information section later
+
+    infopg = Information(pygame, window, settings)
     return infopg
 
 def draw_dice(pygame, screen, infopg, player, settings):
@@ -102,7 +102,7 @@ def draw_current_player_text(pygame, screen, infopg, player, settings):
     font = pygame.font.Font(settings["font"], font_size)
     text = font.render(crt_player_text[0], True, crt_player_text[1])
 
-    height_pos = utils.center_obj_height(font.get_height(), 1, crt_player_text_size[1])[0]+infopg.crt_player_start
+    height_pos = utils.center_obj_height(font.get_height(), 1, crt_player_text_size[1])[0]
     width_pos = utils.center_obj_width(text.get_width(), 1, crt_player_text_size[0])[0]+infopg.start_width
 
     screen.blit(text, (width_pos, height_pos))

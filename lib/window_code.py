@@ -1,7 +1,7 @@
 import sys
 import time
 
-from lib import utils, draw_table, information
+from lib import utils, draw_table, draw_information
 
 class WindowClass:
     def __init__(self, width, height):
@@ -47,8 +47,6 @@ def create_window(pygame, settings):
 
     screen.fill(settings["bg_color"])
     pygame.display.flip() # Update the window
-
-    print(f"Created window with size {window.width}px x {window.height}px!")
 
     return screen, window
 

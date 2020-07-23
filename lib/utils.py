@@ -55,17 +55,17 @@ def center_obj_height(font_height, list_length, box_height):
 
     return start_height, spacing
 
-def get_dice_size(width, max_height, dices):
-    # This function returns a size for each dice so that the size a doesn't overgo the maximal height definied in settings for the dice section
-    # width ... width of the information page
-    # dices ... how many dices do we have
+def get_dice_size(max_width, max_height, dices):
+    # Returns the size for one dice to not overgo the max width and the max height of the section
+    # max_width ... width of the section
+    # max_height ... height of the section
+    # dices ... number of dices
 
-    # Each dice is a square
-    # Returns as integer
+    # Dices must be squares
 
-    width_divided = width / dices
+    width_divided = max_width / dices
 
-    if width_divided < max_height:
+    if width_divided <= max_height:
         return (int(width_divided), int(width_divided))
-    elif max_height < width_divided or max_height == width_divided:
+    elif width_divided >= max_height :
         return (int(max_height), int(max_height))

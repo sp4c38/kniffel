@@ -6,7 +6,7 @@ import random
 import sys
 import time
 
-from lib import window_code, draw_table, utils, player, information
+from lib import window_code, utils, draw_table, draw_information, player
 
 from etc.settings import settings
 
@@ -24,7 +24,7 @@ def main():
 
     # screen: the pygame window class / window: a own class which keeps general measurements
     screen, window = window_code.create_window(pygame, settings)
-    if verbose: print("Initialized the window.")
+    if verbose: print(f"Initialized the window with size {window.width}px x {window.height}px.")
 
     #window_code.welcome_text(pygame, screen, window, user, settings) # Display a welcome text
 
@@ -34,9 +34,9 @@ def main():
     if verbose: print(f"{player_number} players are going to play Kniffel!")
 
     table_sec = draw_table.get_table(window, player_number, settings) # Get table class (with table attributes)
-    information_sec = information.get_information_page(pygame, window, settings)
+    information_sec = draw_information.get_information(pygame, window, settings)
     if verbose: print("Calculated table and information section sizes.")
-
+    sys.exit()
     players = player.init_players(pygame, player_number, information_sec, table_sec, window) # A list which stores player progress information
 
     if settings["play_music"]:
@@ -70,7 +70,7 @@ def main():
 
         draw_table.draw(pygame, screen, table_sec, settings)
         draw_table.draw_achievement(pygame, screen, players, settings)
-        information.draw(pygame, screen, information_sec, current_player, settings)
+        draw_information.draw(pygame, screen, information_sec, current_player, settings)
 
         pygame.display.flip()
 

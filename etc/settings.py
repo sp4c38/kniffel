@@ -9,6 +9,7 @@ settings = {
 
     "error_color": 91, # The ANSI color code to highlight errors in the program output
 
+    "window_resizable": True, # Activate or deactivate window resizable option
     "table_ratio": 0.70,            # Ratio of the table section to the total width
                                     # Number in percent, must < 1
 
@@ -31,8 +32,8 @@ settings = {
     "table_line_thickness": 5, # The thickness of the lines which make up the table
 
     # Both must sum up to 1 (100%):
-    "table_name_section": 0.30, # The percentage of the total table width for the column with the names of the goals (e.g. Aces, Twos)
-    "table_all_player_section": 0.70, # The percentage of the total table width for all columns which contain the reached points of all players
+    "table_name_section": 0.30, # The ratio of the total table width for the column with the names of the goals (e.g. Aces, Twos)
+    "table_all_player_section": 0.70, # The ratio of the total table width for all columns which contain the reached points of all players
 
     # The names of the goals to achive by the players
     "table_names": [
@@ -43,8 +44,22 @@ settings = {
                        ["Chance", (0,255,240)]]
                      ],
 
+    "crt_player_section_height": 0.15, # The ratio of the total height for the section which displays which player currently has the turn
 
-    "window_resizable": True,
+    "dice_images": {
+        # The images for the different possibilities to throw the dice
+        1: os.path.join(BASE_DIR, "assets", "dice_numbers", "one.png"),
+        2: os.path.join(BASE_DIR, "assets", "dice_numbers", "two.png"),
+        3: os.path.join(BASE_DIR, "assets", "dice_numbers", "three.png"),
+        4: os.path.join(BASE_DIR, "assets", "dice_numbers", "four.png"),
+        5: os.path.join(BASE_DIR, "assets", "dice_numbers", "five.png"),
+        6: os.path.join(BASE_DIR, "assets", "dice_numbers", "six.png"),
+    },
+    "dice_button_height": 0.1, # The ratio of the total height of the information section assigned for the dice button
+    "dice_button_color": (242,255,5), # The background color of the dice button
+    "dice_button_text": [["Roll The Dice", (139,69,19)]], # The text for the dice button
+
+
     "bg_color": (0,0,0),
     "window_name": "Kniffel",
     "play_music": False,
@@ -92,24 +107,8 @@ settings = {
         "chance": None,
     },
 
-    "dice": {
-        # Representation of the different dice numbers as images
-        1: os.path.join(BASE_DIR, "assets", "dice_numbers", "one.png"),
-        2: os.path.join(BASE_DIR, "assets", "dice_numbers", "two.png"),
-        3: os.path.join(BASE_DIR, "assets", "dice_numbers", "three.png"),
-        4: os.path.join(BASE_DIR, "assets", "dice_numbers", "four.png"),
-        5: os.path.join(BASE_DIR, "assets", "dice_numbers", "five.png"),
-        6: os.path.join(BASE_DIR, "assets", "dice_numbers", "six.png"),
-    },
-
     # This is the maximum of the dice size in height from the height in decimal percent
     # No specific specification can made because: width=height - mostly wouldn't fit with width with specification
     "dice_size_maximum": 0.2,
-
-    "crt_player_height": 0.15, # The height from all the height for the current player text section in decimal percent
-
-    "dice_button_height": 0.1, # The size for the dice button of the height in decimal percent
-    "dice_button_color": (242,255,5),
-    "dice_button_text": [["Draw The Dice", (139,69,19)]],
 
 }

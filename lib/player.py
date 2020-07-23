@@ -23,23 +23,23 @@ class Player:
 
     def add_progress(self, pygame, table, width_start):
         self.progress = {
-        "aces": Event("aces", pygame.Rect(width_start, (1*table.height_divided_parts), table.player_column_size[0], table.height_divided_parts), 1),
-        "twos": Event("twos", pygame.Rect(width_start, (2*table.height_divided_parts), table.player_column_size[0], table.height_divided_parts), 2),
-        "threes": Event("threes", pygame.Rect(width_start, (3*table.height_divided_parts), table.player_column_size[0], table.height_divided_parts), 3),
-        "fours": Event("fours", pygame.Rect(width_start, (4*table.height_divided_parts), table.player_column_size[0], table.height_divided_parts), 4),
-        "fives": Event("fives", pygame.Rect(width_start, (5*table.height_divided_parts), table.player_column_size[0], table.height_divided_parts), 5),
-        "sixes": Event("sixes", pygame.Rect(width_start, (6*table.height_divided_parts), table.player_column_size[0], table.height_divided_parts), 6),
-        "toak": Event("toak", pygame.Rect(width_start, (7*table.height_divided_parts), table.player_column_size[0], table.height_divided_parts), 7), # Three of a kind
-        "foak": Event("foak", pygame.Rect(width_start, (8*table.height_divided_parts), table.player_column_size[0], table.height_divided_parts), 8), # Four of a kind
-        "fh": Event("fh", pygame.Rect(width_start, (9*table.height_divided_parts), table.player_column_size[0], table.height_divided_parts), 9), # Full House
-        "smstraight": Event("smstraight", pygame.Rect(width_start, (10*table.height_divided_parts), table.player_column_size[0], table.height_divided_parts), 10), # Small Straight
-        "lgstraight": Event("lgstraight", pygame.Rect(width_start, (11*table.height_divided_parts), table.player_column_size[0], table.height_divided_parts), 11), # Long Straight
-        "kniffel": Event("kniffel", pygame.Rect(width_start, (12*table.height_divided_parts), table.player_column_size[0], table.height_divided_parts), 12), # Kniffel
-        "chance": Event("chance", pygame.Rect(width_start, (13*table.height_divided_parts), table.player_column_size[0], table.height_divided_parts), 13), # Chance
+        "aces": Event("aces", pygame.Rect(width_start, (1*table.one_line_height), table.one_player_column[0], table.one_line_height), 1),
+        "twos": Event("twos", pygame.Rect(width_start, (2*table.one_line_height), table.one_player_column[0], table.one_line_height), 2),
+        "threes": Event("threes", pygame.Rect(width_start, (3*table.one_line_height), table.one_player_column[0], table.one_line_height), 3),
+        "fours": Event("fours", pygame.Rect(width_start, (4*table.one_line_height), table.one_player_column[0], table.one_line_height), 4),
+        "fives": Event("fives", pygame.Rect(width_start, (5*table.one_line_height), table.one_player_column[0], table.one_line_height), 5),
+        "sixes": Event("sixes", pygame.Rect(width_start, (6*table.one_line_height), table.one_player_column[0], table.one_line_height), 6),
+        "toak": Event("toak", pygame.Rect(width_start, (7*table.one_line_height), table.one_player_column[0], table.one_line_height), 7), # Three of a kind
+        "foak": Event("foak", pygame.Rect(width_start, (8*table.one_line_height), table.one_player_column[0], table.one_line_height), 8), # Four of a kind
+        "fh": Event("fh", pygame.Rect(width_start, (9*table.one_line_height), table.one_player_column[0], table.one_line_height), 9), # Full House
+        "smstraight": Event("smstraight", pygame.Rect(width_start, (10*table.one_line_height), table.one_player_column[0], table.one_line_height), 10), # Small Straight
+        "lgstraight": Event("lgstraight", pygame.Rect(width_start, (11*table.one_line_height), table.one_player_column[0], table.one_line_height), 11), # Long Straight
+        "kniffel": Event("kniffel", pygame.Rect(width_start, (12*table.one_line_height), table.one_player_column[0], table.one_line_height), 12), # Kniffel
+        "chance": Event("chance", pygame.Rect(width_start, (13*table.one_line_height), table.one_player_column[0], table.one_line_height), 13), # Chance
         }
 
     def update_progress(self, name, pygame, table, width_start):
-        self.progress[name].position = pygame.Rect(width_start, (self.progress[name].height_multiplicator*table.height_divided_parts), table.player_column_size[0], table.height_divided_parts)
+        self.progress[name].position = pygame.Rect(width_start, (self.progress[name].height_multiplicator*table.one_line_height), table.one_player_column[0], table.one_line_height)
 
     def calc_dice_button(self, pygame, infopg):
         dice_button_size = (infopg.width, infopg.dice_button_height)
@@ -56,7 +56,7 @@ def recalculate_positions(pygame, players, table, infopg):
         for a in p.progress:
             p.update_progress(a, pygame, table, width_pointer)
 
-        width_pointer += table.player_column_size[0]
+        width_pointer += table.one_player_column[0]
 
     return players
 
@@ -76,7 +76,7 @@ def init_players(pygame, player_amount, infopg, table, window):
         players.append(player)
 
         player_name += 1 # Add one each time so that the player name is different for each player
-        width_pointer += table.player_column_size[0]
+        width_pointer += table.one_player_column[0]
 
     return players
 

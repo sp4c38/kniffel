@@ -15,11 +15,11 @@ def draw_detail_column(pygame, screen, settings, table):
     pygame.draw.line(screen, table.color, (table.detail_column_size[0]-table.thicknesshalf, 0),
                     (table.detail_column_size[0]-table.thicknesshalf, table.detail_column_size[1]), table.thickness)
 
-    detail_column_cell_size = (table.detail_column_size[0], table.height_divided_parts)
+    detail_column_cell_size = (table.detail_column_size[0], table.one_line_height)
     spaced_size = (detail_column_cell_size[0]*(1-settings["space_left_right"]), detail_column_cell_size[1]*(1-settings["space_top_bottom"])) # The size of the window reduced to make the text look good
 
     height_pointer = 0 # The height_pointer indicates the current state where the program is with drawing / needed because we want text in each cell
-    for section in settings["kniffel_names"]:
+    for section in settings["table_names"]:
 
         font_size = min([utils.get_font_by_size(pygame, spaced_size, name[0], 1, settings) for name in section])
         font = pygame.font.Font(settings["font"], font_size)
@@ -32,7 +32,7 @@ def draw_detail_column(pygame, screen, settings, table):
             screen.blit(text, textpos)
             start_point += summand
 
-            height_pointer += table.height_divided_parts
+            height_pointer += table.one_line_height
             pygame.draw.line(screen, table.color, (0, height_pointer-table.thicknesshalf), (table.width, height_pointer-table.thicknesshalf), table.thickness)
 
     return
@@ -43,8 +43,8 @@ def draw_player_columns(pygame, screen, table, settings):
 
     player_indent = 0
 
-    player_cell_size = (table.player_column_size[0], table.height_divided_parts)
-    spaced_size = (table.player_column_size[0]*(1-settings["space_left_right"]), table.height_divided_parts*(1-settings["space_top_bottom"]))
+    player_cell_size = (table.one_player_column[0], table.one_line_height)
+    spaced_size = (table.one_player_column[0]*(1-settings["space_left_right"]), table.one_line_height*(1-settings["space_top_bottom"]))
 
     for p in range(table.player_number):
         player_indent += 1
@@ -54,10 +54,10 @@ def draw_player_columns(pygame, screen, table, settings):
 
         font = pygame.font.Font(settings["font"], font_size)
 
-        start_point, summand = utils.center_obj_height(font.get_height(), 1, table.height_divided_parts)
+        start_point, summand = utils.center_obj_height(font.get_height(), 1, table.one_line_height)
 
         text = font.render(player_text[0].format(player_indent), True, player_text[1])
-        textpos = (utils.center_obj_width(text.get_width(), 1, table.player_column_size[0])[0]+width_pointer, start_point)
+        textpos = (utils.center_obj_width(text.get_width(), 1, table.one_player_column[0])[0]+width_pointer, start_point)
         screen.blit(text, textpos)
         start_point += summand
 
