@@ -108,7 +108,7 @@ class Table:
             sys.exit(1)
         self.one_line_height = self.height / counter # The height of one single line in the table
 
-def get_table(window, player_number, settings):
+def create(window, player_number, settings):
     # Init the Table class with important attributes for drawing the table later
 
     table = Table(window, player_number, settings)

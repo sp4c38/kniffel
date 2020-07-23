@@ -45,7 +45,7 @@ class Information:
 
 
 
-def get_information(pygame, window, settings):
+def create(pygame, window, settings):
     # Init the Information class with important attributes for drawing the information section later
 
     infopg = Information(pygame, window, settings)

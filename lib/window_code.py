@@ -25,11 +25,11 @@ def resize_window(pygame, player_number, event, settings):
     new_size = event.size
     window = WindowClass(new_size[0], new_size[1])
     window.add_arrangement(settings)
-    import IPython;IPython.embed();import sys;sys.exit()
+
     screen = pygame.display.set_mode((window.width, window.height), pygame.RESIZABLE)
 
-    table_sec = draw_table.get_table(window, player_number, settings)
-    information_sec = information.get_information_page(pygame, window, settings)
+    table_sec = draw_table.create(window, player_number, settings)
+    information_sec = draw_information.create(pygame, window, settings)
 
     screen.fill(settings["bg_color"])
 
@@ -41,7 +41,10 @@ def create_window(pygame, settings):
     window.add_arrangement(settings)
     # Load the window and create it
 
-    screen = pygame.display.set_mode((window.width, window.height))
+    if settings["window_resizable"]:
+        screen = pygame.display.set_mode((window.width, window.height), pygame.RESIZABLE)
+    else:
+        screen = pygame.display.set_mode((window.width, window.height))
 
     pygame.display.set_caption(settings["window_name"]) # Set a window caption
 

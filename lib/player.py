@@ -2,19 +2,6 @@ from lib import check_rules
 
 import random
 
-def recalculate_positions(pygame, players, table, infopg):
-    width_pointer = table.detail_column_size[0]
-
-    for p in players:
-        p.calc_dice_button(pygame, infopg)
-        for a in p.progress:
-            p.update_progress(a, pygame, table, width_pointer)
-
-        width_pointer += table.one_player_column[0]
-
-    return players
-
-
 class Player:
     def __init__(self, name):
         self.is_current_player = False # Indicates if this player is the one which currently has the turn
@@ -25,11 +12,12 @@ class Player:
         # Event holds attributes for one single achievement a player can reach
         # For each player a set of this Event classes is created
 
-        def __init__(self, name, position, height_multiplicator):
+        def __init__(self, name, position, achievement_counter):
             self.name = name # Name of achievement
             self.position = position # Position of achievement
             self.value = None # Value of achievement (is set when player reached it)
-            #self.height_multiplicator = height_multiplicator # This is
+            self.achievement_counter = achievement_counter # The nth achievement from the top to the bottom
+                                                           # Needed to draw the achievements correctly
 
         def change_value(self, newvalue):
             # Update/Change a value
@@ -57,8 +45,8 @@ class Player:
         dice_button_size = (information_sec.width, information_sec.dice_button_height)
         self.dice_button_rect = pygame.Rect(information_sec.start_width, information_sec.height - dice_button_size[1], dice_button_size[0], dice_button_size[1]) # left, top, width, height
 
-    def update_progress(self, name, pygame, table, width_start):
-        self.progress[name].position = pygame.Rect(width_start, (self.progress[name].height_multiplicator*table.one_line_height), table.one_player_column[0], table.one_line_height)
+    def update_achievement(self, name, pygame, table, width_start):
+        self.progress[name].position = pygame.Rect(width_start, (self.progress[name].achievement_counter*table.one_line_height), table.one_player_column[0], table.one_line_height)
 
     def remove_stored_dices(self):
         self.current_dices = []
@@ -82,7 +70,20 @@ def init_players(pygame, player_amount, table_sec, information_sec, window):
 
     return players
 
-def switch_player_turn(players, current_player):
+def recalculate_positions(pygame, players, table_sec, information_sec):
+    width_pointer = table_sec.detail_column_size[0]
+
+    for plyr in players:
+        plyr.add_dice_button(pygame, information_sec)
+        for achievement in plyr.progress:
+            plyr.update_achievement(achievement, pygame, table_sec, width_pointer)
+
+        width_pointer += table_sec.one_player_column[0]
+
+    return players
+
+
+def switch_turn(players, current_player):
     # Switches the turn from the current player to the next player
     # If current_player is None than the first player in the list is assigned the current turn
 
@@ -102,7 +103,7 @@ def switch_player_turn(players, current_player):
 
     return players
 
-def get_current_player(players):
+def get_current(players):
     for plyr in players:
         if plyr.is_current_player:
             return plyr
