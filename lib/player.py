@@ -1,4 +1,4 @@
-from lib import check_rules
+from lib import rules
 
 import random
 
@@ -20,7 +20,7 @@ class Player:
                                                            # Needed to draw the achievements correctly
 
         def change_value(self, newvalue):
-            # Update/Change a value
+            # Update the value of a achievement (when it was reached)
             self.value = newvalue
 
     def add_progress(self, pygame, table, width_start):
@@ -40,11 +40,6 @@ class Player:
         "chance": self.Event("chance", pygame.Rect(width_start, (13*table.one_line_height), table.one_player_column[0], table.one_line_height), 13), # Chance
         }
 
-    def add_dice_button(self, pygame, information_sec):
-        # Adds attributes for the dice button
-        dice_button_size = (information_sec.width, information_sec.dice_button_height)
-        self.dice_button_rect = pygame.Rect(information_sec.start_width, information_sec.height - dice_button_size[1], dice_button_size[0], dice_button_size[1]) # left, top, width, height
-
     def update_achievement(self, name, pygame, table, width_start):
         self.progress[name].position = pygame.Rect(width_start, (self.progress[name].achievement_counter*table.one_line_height), table.one_player_column[0], table.one_line_height)
 
@@ -61,7 +56,6 @@ def init_players(pygame, player_amount, table_sec, information_sec, window):
     for p in range(player_amount):
         player = Player(str(player_name))
         player.add_progress(pygame, table_sec, start_width)
-        player.add_dice_button(pygame, information_sec)
         players.append(player)
 
         player_name += 1 # Add one each time so that the player name is different for each player
@@ -110,60 +104,56 @@ def get_current(players):
 
     return None
 
-def update_player_dice(player, settings):
-    # This updates the dices which are assigned to a player IF there not already are any
-    player.current_dices = []
-    # if not player.current_dices:
+def roll_dices(player, information_sec, settings):
+    # Rolles the dices
+
+    player.remove_stored_dices()
+
     for x in range(5):
         random_number = random.randint(min(settings["dice_images"]), max(settings["dice_images"]))
-        player.current_dices.append(random_number) # The number is later replaced by the image (i.e.: Dice image for 1, ...)
-    print("Updated dices.")
+        player.current_dices.append(random_number)
+
     return
 
-def make_action(dices, want_to_do, settings):
-    # Validates and than makes the action for a click in a box (e.g. in aces)
+def make_action(dices, achievement, settings):
+    # This checks if the selected achievement to enter the value is valid
 
-    # dices ... the dices as list
-    # want_to_do ... the box which was selected to fill
-    print("Checking selection...")
-    rules = check_rules.check(dices, settings)
-    if rules[want_to_do.name]:
-        want_to_do.change_value(rules[want_to_do.name])
+    # dices ... the dices the player threw
+    # achievement ... the achievement which was selected
+
+    rules = rules.check(dices, settings)
+
+    if rules[achievement.name == True]: # If the achievement is valid to enter
+        achievement.change_value(rules[achievement.name])
         return True
     else:
         return False
 
 
-def validate_click(event, player, all_players, settings):
-    # event is the mouse click event
-    # player is the current player
-    # Validate the click
+def validate_click(event, player, all_players, information_sec, settings):
+    # event ... mouse click input event
+    # player ... current player
+
+    updated_achievement = False
+    updated_dices = False
 
     click_position = event.pos
     point_distribution = settings["point_distribution"]
-    players_dices = player.current_dices
+    player_dices = player.current_dices # The dices of the current player
 
-    for p in player.progress:
-        prgrs = player.progress[p]
-        if prgrs.position.collidepoint(click_position):
-            if players_dices:
-                if point_distribution[prgrs.name]:
-                    if make_action(player.current_dices, prgrs, settings):
-                        player.remove_stored_dices()
-                        all_players = next_player(all_players, player)
+    for achievement in player.progress:
+        achievement = player.progress[achievement]
 
-                        print("Switched user.")
-                        return all_players
-                else:
-                    if make_action(player.current_dices, prgrs, settings):
-                        player.remove_stored_dices()
-                        all_players = next_player(all_players, player)
-
-                        print("Switched user.")
-                        return all_players
+        if achievement.position.collidepoint(click_position): # Check if the clicked position intervenes with the column of a achievment
+            if player_dices:
+                if make_action(player.current_dices, achievement, settings):
+                    player.remove_stored_dices()
+                    all_players = switch_turn(all_players, player)
+                    updated_achievement = True
 
 
-    if player.dice_button_rect.collidepoint(click_position):
-        update_player_dice(player, settings)
+    if information_sec.dice_button_rect.collidepoint(click_position):
+        roll_dices(player, information_sec, settings)
+        updated_duces = True
 
-    return all_players # Only return False if no collidepoints were found in the for-loop
+    return updated_achievement, updated_dices, all_players

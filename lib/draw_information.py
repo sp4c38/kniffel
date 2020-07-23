@@ -42,7 +42,7 @@ class Information:
 
         self.dice_button_height = self.height * settings["dice_button_height"]
         self.dice_button_color = settings["dice_button_color"]
-
+        self.dice_button_rect = pygame.Rect(self.start_width, self.height - self.dice_button_height, self.width, self.dice_button_height) # left, top, width, height
 
 
 def create(pygame, window, settings):
@@ -72,7 +72,7 @@ def draw_dice(pygame, screen, infopg, player, settings):
 
 def draw_dice_button(pygame, screen, infopg, player, settings):
     dice_button_size = (infopg.width, infopg.dice_button_height)
-    pygame.draw.rect(screen, infopg.dice_button_color, player.dice_button_rect) # surface, color, rectangle
+    pygame.draw.rect(screen, infopg.dice_button_color, infopg.dice_button_rect) # surface, color, rectangle
 
     spaced_size = (dice_button_size[0]*(1-settings["space_left_right"]), dice_button_size[1]*(1-settings["space_top_bottom"])) # The size of the button reduced to make the text look good
 
@@ -84,7 +84,7 @@ def draw_dice_button(pygame, screen, infopg, player, settings):
 
     for name in dice_btn_text:
         text = font.render(name[0], True, name[1])
-        textpos = (utils.center_obj_width(text.get_width(), 1, dice_button_size[0])[0]+player.dice_button_rect.left, player.dice_button_rect.top+start_point)
+        textpos = (utils.center_obj_width(text.get_width(), 1, dice_button_size[0])[0]+infopg.dice_button_rect.left, infopg.dice_button_rect.top+start_point)
 
         screen.blit(text, textpos)
 

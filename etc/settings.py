@@ -66,6 +66,24 @@ settings = {
     "play_music": False, # Activate or deactivate background music
     "window_music": os.path.join(BASE_DIR, "assets", "music", "background_music.mp3"), # Background music path
 
+    # The points when reaching achievements
+    # The names are hard-coded in the game and must not be changed!
+    "point_distribution": {
+        "aces": None, # None indicates that the point may vary for a certain achievement
+        "twos": None,
+        "threes": None,
+        "fours": None,
+        "fives": None,
+        "sixes": None,
+        "toak": None,
+        "foak": None,
+        "fh": 25,
+        "smstraight": 30,
+        "lgstraight": 40,
+        "kniffel": 50,
+        "chance": None,
+    },
+
 
     "bg_color": (0,0,0),
 
@@ -91,22 +109,6 @@ settings = {
                                    ["A maximum of {} players can play.", (255,255,255)]
                                   ],
 
-    # The keys shouldn't be changed
-    "point_distribution": {
-        "aces": None, # None indicates that the point may be different
-        "twos": None,
-        "threes": None,
-        "fours": None,
-        "fives": None,
-        "sixes": None,
-        "toak": None,
-        "foak": None,
-        "fh": 25,
-        "smstraight": 30,
-        "lgstraight": 40,
-        "kniffel": 50,
-        "chance": None,
-    },
 
     # This is the maximum of the dice size in height from the height in decimal percent
     # No specific specification can made because: width=height - mostly wouldn't fit with width with specification

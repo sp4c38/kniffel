@@ -67,10 +67,13 @@ def main():
 
             if e.type == pygame.MOUSEBUTTONDOWN:
                 if e.button == 1: # A left-click on the mouse
-                    # This changes the value of a event of the player, if it's valid
-                    # if not valid it will do nothing but to return False
-                    players = player.validate_click(e, current_player, players, settings)
-                    #current_player = player.switch_turn(players)
+
+                    updated_achievement, updated_dices, players = player.validate_click(e, current_player, players, information_sec, settings)
+                    if updated_achievement:
+                        current_player = player.get_current(players)
+                        if verbose: print("Switched the current player.")
+                    if verbose and updated_dices: print("Rolled the dices.")
+                    if verbose: print("Validated mousebutton-down click.")
 
         draw_table.draw(pygame, screen, table_sec, settings)
         draw_table.draw_achievement(pygame, screen, players, settings)
