@@ -6,7 +6,7 @@ import random
 import sys
 import time
 
-from lib import window_code, utils, draw_table, draw_information, player
+from lib import window_code, utils, tablesec, informationsec, player
 
 from etc.settings import settings
 
@@ -33,8 +33,8 @@ def main():
 
     if verbose: print(f"{player_number} players are going to play Kniffel!")
 
-    table_sec = draw_table.create(window, player_number, settings) # Get table class (with table attributes)
-    information_sec = draw_information.create(pygame, window, settings)
+    table_sec = tablesec.create(window, player_number, settings) # Get table class (with table attributes)
+    information_sec = informationsec.create(pygame, window, settings)
     if verbose: print("Calculated table and information section sizes.")
 
     players = player.init_players(pygame, player_number, table_sec, information_sec, window)
@@ -75,9 +75,9 @@ def main():
                     if verbose and updated_dices: print("Rolled the dices.")
                     if verbose: print("Validated mousebutton-down click.")
 
-        draw_table.draw(pygame, screen, table_sec, settings)
-        draw_table.draw_achievement(pygame, screen, players, settings)
-        draw_information.draw(pygame, screen, information_sec, current_player, settings)
+        tablesec.draw(pygame, screen, table_sec, settings)
+        tablesec.draw_achievement(pygame, screen, players, settings)
+        informationsec.draw(pygame, screen, information_sec, current_player, settings)
 
         pygame.display.flip()
 

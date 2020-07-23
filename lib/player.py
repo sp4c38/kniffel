@@ -109,7 +109,7 @@ def roll_dices(player, information_sec, settings):
 
     player.remove_stored_dices()
 
-    for x in range(5):
+    for x in range(information_sec.dice_number):
         random_number = random.randint(min(settings["dice_images"]), max(settings["dice_images"]))
         player.current_dices.append(random_number)
 

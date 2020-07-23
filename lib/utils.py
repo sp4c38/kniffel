@@ -31,26 +31,27 @@ def get_font_by_size(pygame, box_size, text, list_length, settings):
 
     return previouse_font_size
 
-def center_obj_width(obj_width, list_length, window_width):
+def center_obj_width(obj_width, list_length, section_width):
     # Finds the position on the x axis to center some object
     # This works for a single object in a line or for multiple objects in a line
 
+    # the width of the section to center the objects in (can be whole window or just a section of the window)
     # obj_width ... the width of the object
     # list_length ... a integer which shows how many objects there to center
 
-    start_width = (window_width / 2) - ((obj_width / 2)*list_length)
+    start_width = (section_width / 2) - ((obj_width / 2)*list_length)
     spacing = obj_width
 
     return start_width, spacing
 
-def center_obj_height(font_height, list_length, box_height):
+def center_obj_height(obj_height, list_length, box_height):
     # Calculates a start_height from which objects can be drawn in lines under each other with spacing
 
     # Returns values start_height and spacing -> start_height: start height from where to print the first line of text
     #                                        -> spacing: The spacing between two lines (added to the y coordinate of start_height)
 
-    text_height = font_height * list_length # The total amount of height needed by all lines
-    spacing = font_height
+    text_height = obj_height * list_length # The total amount of height needed by all lines
+    spacing = obj_height
     start_height = (box_height / 2) - (text_height / 2)
 
     return start_height, spacing

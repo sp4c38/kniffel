@@ -1,7 +1,7 @@
 import sys
 import time
 
-from lib import utils, draw_table, draw_information
+from lib import utils, tablesec, informationsec
 
 class WindowClass:
     def __init__(self, width, height):
@@ -28,8 +28,8 @@ def resize_window(pygame, player_number, event, settings):
 
     screen = pygame.display.set_mode((window.width, window.height), pygame.RESIZABLE)
 
-    table_sec = draw_table.create(window, player_number, settings)
-    information_sec = draw_information.create(pygame, window, settings)
+    table_sec = tablesec.create(window, player_number, settings)
+    information_sec = informationsec.create(pygame, window, settings)
 
     screen.fill(settings["bg_color"])
 

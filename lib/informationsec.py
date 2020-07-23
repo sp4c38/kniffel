@@ -51,22 +51,21 @@ def create(pygame, window, settings):
     infopg = Information(pygame, window, settings)
     return infopg
 
-def draw_dice(pygame, screen, infopg, player, settings):
+def draw_dice(pygame, screen, information_sec, player, settings):
     if not player.current_dices:
         return
 
-    player_dices = [infopg.dice.dice[x] for x in sorted(player.current_dices)]
+    player_dices = [information_sec.dice_images[x] for x in sorted(player.current_dices)]
 
-    start_point, summmand = utils.center_obj_width(pygame, infopg.dice_size[0], infopg.dices, infopg.width)
-    height_point = utils.center_obj_height(pygame, infopg.dice_size[1], 1, infopg.dice_section_height)[0] + infopg.dice_section_start
+    start_width, spacing = utils.center_obj_width(information_sec.dice_size[0], len(player_dices), information_sec.width)
+    start_height = utils.center_obj_height(information_sec.dice_size[1], 1, information_sec.dice_section_height)[0] + information_sec.dice_section_start
 
-    for d in player_dices:
-        dice = pygame.transform.scale(d, (int(infopg.dice_size[0]), int(infopg.dice_size[1])))
-        dicepos = (infopg.start_width + start_point, height_point)
+    for dice in player_dices:
+        dicepos = (information_sec.start_width + start_width, start_height)
 
         screen.blit(dice, dicepos)
 
-        start_point += summmand
+        start_width += spacing
 
     return
 
