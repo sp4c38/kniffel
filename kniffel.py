@@ -1,9 +1,14 @@
 #!/usr/bin/python
 
+import sys
+
+if not int(str(sys.version_info[0]) + str(sys.version_info[1]) + str(sys.version_info[2])) < 380:
+    print("Sorry! Pygame only supports python versions under 3.8. Please consider using python 3.7 to play the game.")
+    sys.exit(1)
+
 import getpass
 import pygame
 import random
-import sys
 import time
 
 from lib import window_code, utils, tablesec, informationsec, player

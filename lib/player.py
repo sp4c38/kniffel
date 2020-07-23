@@ -25,23 +25,23 @@ class Player:
 
     def add_progress(self, pygame, table, width_start):
         self.progress = {
-        "aces": self.Event("aces", pygame.Rect(width_start, (1*table.one_line_height), table.one_player_column[0], table.one_line_height), 1), # Aces
-        "twos": self.Event("twos", pygame.Rect(width_start, (2*table.one_line_height), table.one_player_column[0], table.one_line_height), 2), # Twos
-        "threes": self.Event("threes", pygame.Rect(width_start, (3*table.one_line_height), table.one_player_column[0], table.one_line_height), 3), # Threes
-        "fours": self.Event("fours", pygame.Rect(width_start, (4*table.one_line_height), table.one_player_column[0], table.one_line_height), 4), # Fours
-        "fives": self.Event("fives", pygame.Rect(width_start, (5*table.one_line_height), table.one_player_column[0], table.one_line_height), 5), # Fives
-        "sixes": self.Event("sixes", pygame.Rect(width_start, (6*table.one_line_height), table.one_player_column[0], table.one_line_height), 6), # Sixes
-        "toak": self.Event("toak", pygame.Rect(width_start, (7*table.one_line_height), table.one_player_column[0], table.one_line_height), 7), # Three of a kind
-        "foak": self.Event("foak", pygame.Rect(width_start, (8*table.one_line_height), table.one_player_column[0], table.one_line_height), 8), # Four of a kind
-        "fh": self.Event("fh", pygame.Rect(width_start, (9*table.one_line_height), table.one_player_column[0], table.one_line_height), 9), # Full House
-        "smstraight": self.Event("smstraight", pygame.Rect(width_start, (10*table.one_line_height), table.one_player_column[0], table.one_line_height), 10), # Small Straight
-        "lgstraight": self.Event("lgstraight", pygame.Rect(width_start, (11*table.one_line_height), table.one_player_column[0], table.one_line_height), 11), # Long Straight
-        "kniffel": self.Event("kniffel", pygame.Rect(width_start, (12*table.one_line_height), table.one_player_column[0], table.one_line_height), 12), # Kniffel
-        "chance": self.Event("chance", pygame.Rect(width_start, (13*table.one_line_height), table.one_player_column[0], table.one_line_height), 13), # Chance
+        "aces": self.Event("aces", pygame.Rect(width_start, (1*table.one_line_height), table.player_column_size[0], table.one_line_height), 1), # Aces
+        "twos": self.Event("twos", pygame.Rect(width_start, (2*table.one_line_height), table.player_column_size[0], table.one_line_height), 2), # Twos
+        "threes": self.Event("threes", pygame.Rect(width_start, (3*table.one_line_height), table.player_column_size[0], table.one_line_height), 3), # Threes
+        "fours": self.Event("fours", pygame.Rect(width_start, (4*table.one_line_height), table.player_column_size[0], table.one_line_height), 4), # Fours
+        "fives": self.Event("fives", pygame.Rect(width_start, (5*table.one_line_height), table.player_column_size[0], table.one_line_height), 5), # Fives
+        "sixes": self.Event("sixes", pygame.Rect(width_start, (6*table.one_line_height), table.player_column_size[0], table.one_line_height), 6), # Sixes
+        "toak": self.Event("toak", pygame.Rect(width_start, (7*table.one_line_height), table.player_column_size[0], table.one_line_height), 7), # Three of a kind
+        "foak": self.Event("foak", pygame.Rect(width_start, (8*table.one_line_height), table.player_column_size[0], table.one_line_height), 8), # Four of a kind
+        "fh": self.Event("fh", pygame.Rect(width_start, (9*table.one_line_height), table.player_column_size[0], table.one_line_height), 9), # Full House
+        "smstraight": self.Event("smstraight", pygame.Rect(width_start, (10*table.one_line_height), table.player_column_size[0], table.one_line_height), 10), # Small Straight
+        "lgstraight": self.Event("lgstraight", pygame.Rect(width_start, (11*table.one_line_height), table.player_column_size[0], table.one_line_height), 11), # Long Straight
+        "kniffel": self.Event("kniffel", pygame.Rect(width_start, (12*table.one_line_height), table.player_column_size[0], table.one_line_height), 12), # Kniffel
+        "chance": self.Event("chance", pygame.Rect(width_start, (13*table.one_line_height), table.player_column_size[0], table.one_line_height), 13), # Chance
         }
 
     def update_achievement(self, name, pygame, table, width_start):
-        self.progress[name].position = pygame.Rect(width_start, (self.progress[name].achievement_counter*table.one_line_height), table.one_player_column[0], table.one_line_height)
+        self.progress[name].position = pygame.Rect(width_start, (self.progress[name].achievement_counter*table.one_line_height), table.cell_size[0], table.one_line_height)
 
     def remove_stored_dices(self):
         self.current_dices = []
@@ -59,8 +59,8 @@ def init_players(pygame, player_amount, table_sec, information_sec, window):
         players.append(player)
 
         player_name += 1 # Add one each time so that the player name is different for each player
-        start_width += table_sec.one_player_column[0] # Add the width of one player column to have the start width
-                                                      # of the next player column
+        start_width += table_sec.player_column_size[0] # Add the width of one player column to have the start width
+                                                       # of the next player column
 
     return players
 
@@ -72,7 +72,7 @@ def recalculate_positions(pygame, players, table_sec, information_sec):
         for achievement in plyr.progress:
             plyr.update_achievement(achievement, pygame, table_sec, width_pointer)
 
-        width_pointer += table_sec.one_player_column[0]
+        width_pointer += table_sec.player_column_size[0]
 
     return players
 
@@ -121,10 +121,10 @@ def make_action(dices, achievement, settings):
     # dices ... the dices the player threw
     # achievement ... the achievement which was selected
 
-    rules = rules.check(dices, settings)
+    checked = rules.check(dices, settings)
 
-    if rules[achievement.name == True]: # If the achievement is valid to enter
-        achievement.change_value(rules[achievement.name])
+    if checked[achievement.name] != None: # If the achievement is valid to enter
+        achievement.change_value(checked[achievement.name])
         return True
     else:
         return False
@@ -144,7 +144,7 @@ def validate_click(event, player, all_players, information_sec, settings):
     for achievement in player.progress:
         achievement = player.progress[achievement]
 
-        if achievement.position.collidepoint(click_position): # Check if the clicked position intervenes with the column of a achievment
+        if achievement.position.collidepoint(click_position): # Check if the clicked position intervenes with the cell of a achievment
             if player_dices:
                 if make_action(player.current_dices, achievement, settings):
                     player.remove_stored_dices()

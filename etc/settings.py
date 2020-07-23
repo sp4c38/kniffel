@@ -84,6 +84,8 @@ settings = {
         "chance": None,
     },
 
+    "space_left_right": 0.1, # Margin to the left and right (together) to make text fit more nicely
+    "space_top_bottom": 0.1, # Margin to the top and bottom (together) to make text fit more nicely
 
     "bg_color": (0,0,0),
 
@@ -100,9 +102,6 @@ settings = {
 
     # ! All characters should have the same height in the font
     "font": os.path.join(BASE_DIR, "assets", "fonts", "cascadia.ttf"),
-    # To make everything fit nicely, a space to the top and bottom is needed / in decimal percent
-    "space_top_bottom": 0.1, # Space to top and bottom (together)
-    "space_left_right": 0.1, # Space to left and right (together)
 
     # The text as array -> first value is the text and the second the color of the texts
     "player_number_unsuccessful": [["Sorry, this doesn't work. Please try again", (255,255,255)],
