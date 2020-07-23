@@ -93,7 +93,7 @@ def draw_dice_button(pygame, screen, infopg, player, settings):
 
 def draw_current_player_text(pygame, screen, infopg, player, settings):
     # This draws a text, to indicate which player has the turn
-    crt_player_text = (settings["crt_player_text"][0].format(player.player_name), settings["crt_player_text"][1])
+    crt_player_text = (settings["crt_player_text"][0].format(player.name), settings["crt_player_text"][1])
     crt_player_text_size = (infopg.width, infopg.crt_player_height)
     spaced_size = (crt_player_text_size[0]*(1-settings["space_left_right"]), crt_player_text_size[1]*(1-settings["space_top_bottom"]))
 

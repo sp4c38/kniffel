@@ -11,7 +11,7 @@ settings = {
 
     "window_resizable": True, # Activate or deactivate window resizable option
     "window_icon": os.path.join(BASE_DIR, "assets", "window_icon.png"), # The icon of the game
-    "window_size": (1400, 800),     # The size of the default window size in (width, height)
+    "window_size": (1000, 800),     # The size of the default window size in (width, height)
     "window_name": "Kniffel Yahtzee", # The name of the window
 
 
@@ -61,7 +61,7 @@ settings = {
     },
     "dice_button_height": 0.1, # The ratio of the total height of the information section assigned for the dice button
     "dice_button_color": (242,255,5), # The background color of the dice button
-    "dice_button_text": [["Roll The Dice", (139,69,19)]], # The text for the dice button
+    "dice_button_text": [["Throw The Dices", (139,69,19)]], # The text for the dice button
 
     "play_music": False, # Activate or deactivate background music
     "window_music": os.path.join(BASE_DIR, "assets", "music", "background_music.mp3"), # Background music path
@@ -84,8 +84,11 @@ settings = {
         "chance": None,
     },
 
-    "space_left_right": 0.1, # Margin to the left and right (together) to make text fit more nicely
-    "space_top_bottom": 0.1, # Margin to the top and bottom (together) to make text fit more nicely
+    "space_left_right": 0.17, # Margin to the left and right (together) to make text fit more nicely
+    "space_top_bottom": 0.3, # Margin to the top and bottom (together) to make text fit more nicely
+
+    "player_text": [["Player {}", (255,255,255)]], # Text displayed in the first cell of each player column
+                                                 # Formats it with the player's name
 
     "bg_color": (0,0,0),
 
@@ -97,7 +100,6 @@ settings = {
     # Maximal players allowed / below 0, 0 and 1 aren't included
 
     # The text which is shown in the most top line for a player
-    "player_text": ("Player {}", (255,255,255)), # No multiline allowed
     "crt_player_text": ("It's Player {}'s turn.", (255,255,255)), # The text which shows which player has the turn / No multiline allowed
 
     # ! All characters should have the same height in the font

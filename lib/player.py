@@ -6,7 +6,7 @@ class Player:
     def __init__(self, name):
         self.is_current_player = False # Indicates if this player is the one which currently has the turn
         self.current_dices = [] # Stores the dices currently thrown or selected by the player
-        self.player_name = name # The name of the player
+        self.name = name # The name of the player
 
     class Event:
         # Event holds attributes for one single achievement a player can reach
@@ -41,7 +41,7 @@ class Player:
         }
 
     def update_achievement(self, name, pygame, table, width_start):
-        self.progress[name].position = pygame.Rect(width_start, (self.progress[name].achievement_counter*table.one_line_height), table.cell_size[0], table.one_line_height)
+        self.progress[name].position = pygame.Rect(width_start, (self.progress[name].achievement_counter*table.one_line_height), table.detail_column_size[0], table.one_line_height)
 
     def remove_stored_dices(self):
         self.current_dices = []
@@ -68,7 +68,6 @@ def recalculate_positions(pygame, players, table_sec, information_sec):
     width_pointer = table_sec.detail_column_size[0]
 
     for plyr in players:
-        plyr.add_dice_button(pygame, information_sec)
         for achievement in plyr.progress:
             plyr.update_achievement(achievement, pygame, table_sec, width_pointer)
 
@@ -154,6 +153,6 @@ def validate_click(event, player, all_players, information_sec, settings):
 
     if information_sec.dice_button_rect.collidepoint(click_position):
         roll_dices(player, information_sec, settings)
-        updated_duces = True
+        updated_dices = True
 
     return updated_achievement, updated_dices, all_players

@@ -41,36 +41,32 @@ def draw_detail_column(pygame, screen, settings, table):
 
     return
 
-def draw_player_columns(pygame, screen, table, settings):
+def draw_player_columns(pygame, screen, players, table, settings):
     # Draw the player columns
 
-    width_pointer = table.detail_column_size[0] # Start after detail column
-
-    player_indent = 0
+    start_width = table.detail_column_size[0] # Start with first player column after the detail column
 
     player_cell_size = (table.player_column_size[0], table.one_line_height)
     spaced_size = (table.player_column_size[0]*(1-settings["space_left_right"]), table.one_line_height*(1-settings["space_top_bottom"]))
 
-    for p in range(table.player_number):
-        player_indent += 1
+    for plyr in players:
         player_text = settings["player_text"]
 
-        font_size = utils.get_font_by_size(pygame, spaced_size, player_text[0].format(player_indent), 1, settings) # Get font size which fits for the height and width
-
+        font_size = min([utils.get_font_by_size(pygame, spaced_size, line[0], len(player_text), settings) for line in player_text])
         font = pygame.font.Font(settings["font"], font_size)
 
-        start_point, summand = utils.center_obj_height(font.get_height(), 1, table.one_line_height)
+        start_height, spacing = utils.center_obj_height(font.size(player_text[0][0])[1], len(player_text), table.one_line_height)
 
-        text = font.render(player_text[0].format(player_indent), True, player_text[1])
-        textpos = (utils.center_obj_width(text.get_width(), 1, table.player_column_size[0])[0]+width_pointer, start_point)
-        screen.blit(text, textpos)
-        start_point += summand
+        for line in player_text:
+            text = font.render(line[0].format(plyr.name), True, line[1])
+            textpos = (utils.center_obj_width(font.size(line[0])[0], 1, table.player_column_size[0])[0] + start_width, start_height)
+            screen.blit(text, textpos)
 
-        column_end = width_pointer + player_cell_size[0]
-        pygame.draw.line(screen, table.color, (column_end, 0), (column_end, table.height), table.thickness)
+            start_height += spacing
 
+        pygame.draw.line(screen, table.color, (start_width + player_cell_size[0], 0), (start_width + player_cell_size[0], table.player_column_size[1]), table.thickness)
 
-        width_pointer = column_end
+        start_width = start_width + table.player_column_size[0]
 
     return
 
@@ -100,10 +96,10 @@ def draw_achievement(pygame, screen, players, settings):
     return
 
 
-def draw(pygame, screen, table, settings):
+def draw(pygame, screen, players, table, settings):
     draw_outline(pygame, screen, table)
     draw_detail_column(pygame, screen, settings, table)
-    draw_player_columns(pygame, screen, table, settings)
+    draw_player_columns(pygame, screen, players, table, settings)
 
     return
 

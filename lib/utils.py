@@ -31,7 +31,7 @@ def get_font_by_size(pygame, box_size, text, list_length, settings):
 
     return previouse_font_size
 
-def center_obj_width(obj_width, list_length, section_width):
+def center_obj_width(obj_width, list_length, box_width):
     # Finds the position on the x axis to center some object
     # This works for a single object in a line or for multiple objects in a line
 
@@ -39,7 +39,7 @@ def center_obj_width(obj_width, list_length, section_width):
     # obj_width ... the width of the object
     # list_length ... a integer which shows how many objects there to center
 
-    start_width = (section_width / 2) - ((obj_width / 2)*list_length)
+    start_width = (box_width / 2) - ((obj_width / 2)*list_length)
     spacing = obj_width
 
     return start_width, spacing

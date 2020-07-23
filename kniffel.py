@@ -50,9 +50,13 @@ def main():
 
     current_player = player.get_current(player.switch_turn(players, None))
 
+    first_run = True
+
     while True:
         # The following must be run in a while-loop because
         # these steps could be influenced by the user (e.g. input/output)
+
+        window_updated = False
 
         window_code.clear_window(pygame, screen, settings)
 
@@ -69,22 +73,27 @@ def main():
                     if verbose: print("Window resized. Resizing elements.")
                     screen, window, table_sec, information_sec = window_code.resize_window(pygame, player_number, e, settings)
                     players = player.recalculate_positions(pygame, players, table_sec, information_sec)
-
+                    window_updated = True
             if e.type == pygame.MOUSEBUTTONDOWN:
                 if e.button == 1: # A left-click on the mouse
-
                     updated_achievement, updated_dices, players = player.validate_click(e, current_player, players, information_sec, settings)
+                    if updated_achievement or updated_dices:
+                        window_updated = True
+
                     if updated_achievement:
                         current_player = player.get_current(players)
                         if verbose: print("Switched the current player.")
                     if verbose and updated_dices: print("Rolled the dices.")
                     if verbose: print("Validated mousebutton-down click.")
 
-        tablesec.draw(pygame, screen, table_sec, settings)
-        tablesec.draw_achievement(pygame, screen, players, settings)
-        informationsec.draw(pygame, screen, information_sec, current_player, settings)
+        if first_run or window_updated:
+            tablesec.draw(pygame, screen, players, table_sec, settings)
+            tablesec.draw_achievement(pygame, screen, players, settings)
+            informationsec.draw(pygame, screen, information_sec, current_player, settings)
 
-        pygame.display.flip()
+            pygame.display.flip()
+
+        first_run = False
 
         time.sleep(settings["update_time"])
 
