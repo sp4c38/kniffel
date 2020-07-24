@@ -71,26 +71,24 @@ def draw_player_columns(pygame, screen, players, table, settings):
     return
 
 def draw_achievement(pygame, screen, players, settings):
-    # This draws ALL achievements from ALL players which were made
+    # Draws all reached achievements from all players in the cells of the columns of the players
 
-    for player in players:
-        for a in player.progress:
-            achievement = player.progress[a]
+    for plyr in players:
+        for achieve in plyr.progress: # Go through each achievement and check if it has a value to add it to the table
+            achievement = plyr.progress[achieve]
 
-            if achievement.value:
-                achievementrect = achievement.position # The position of the cell as a rectangle
-                widthheightcell = (achievementrect.width, achievementrect.height) # The width and height of the cell
-                spaced_size = (widthheightcell[0]*(1-settings["space_left_right"]), widthheightcell[1]*(1-settings["space_top_bottom"]))
+            if achievement.value != None: # Only draw if the achievement has a value
 
-                text_value = str(achievement.value)
+                cell_size = (achievement.position.width, achievement.position.height)
+                spaced_size = (cell_size[0] * (1-settings["space_left_right"]), cell_size[1] * (1-settings["space_top_bottom"]))
 
-                font_size = utils.get_font_by_size(pygame, spaced_size, text_value, 1, settings)
+                font_size = utils.get_font_by_size(pygame, spaced_size, str(achievement.value), 1, settings)
                 font = pygame.font.Font(settings["font"], font_size)
 
-                start_point, summand = utils.center_obj_height(pygame, font.get_height(), 1, widthheightcell[1])
+                start_height, spacing = utils.center_obj_height(font.size(str(achievement.value))[1], 1, cell_size[1])
 
-                text = font.render(text_value, True, settings["table_value_color"])
-                textpos = (utils.center_obj_width(pygame, text.get_width(), 1, widthheightcell[0])[0]+achievementrect.left, start_point+achievementrect.top)
+                text = font.render(str(achievement.value), True, settings["table_value_color"])
+                textpos = (utils.center_obj_width(font.size(str(achievement.value))[0], 1, cell_size[0])[0] + achievement.position.left, start_height + achievement.position.top)
                 screen.blit(text, textpos)
 
     return

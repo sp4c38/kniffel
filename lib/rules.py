@@ -10,9 +10,9 @@ def check(dices, settings):
     dices = sorted(dices)
     amount_of = how_may_of(dices) # Amount of times a certain number appears
 
-    validation = {"aces": False, "twos": False, "threes": False, "fours": False, "fives": False,
-                  "sixes": False, "toak": False, "foak": False, "fh": False, "smstraight": False,
-                  "lgstraight": False, "kniffel": False,  "chance":  False}
+    validation = {"aces": None, "twos": None, "threes": None, "fours": None, "fives": None,
+                  "sixes": None, "toak": None, "foak": None, "fh": None, "smstraight": None,
+                  "lgstraight": None, "kniffel": None,  "chance":  None}
 
     if amount_of[1] > 0:
         validation["aces"] = amount_of[1]*1
@@ -84,7 +84,7 @@ def check(dices, settings):
     chance_points = 0
     for num in amount_of:
         chance_points += num * amount_of[num]
-        
+
     if chance_points:
         validation["chance"] = chance_points
 
