@@ -14,6 +14,7 @@ settings = {
     "window_size": (1000, 800),     # The size of the default window size in (width, height)
     "window_name": "Kniffel Yahtzee", # The name of the window
 
+    "font": os.path.join(BASE_DIR, "assets", "fonts", "machinegunk.ttf"), # The font of the text in the game window
 
     "table_ratio": 0.70,            # Ratio of the table section to the total width
                                     # Number in percent, must < 1
@@ -98,9 +99,6 @@ settings = {
 
     "table_value_color": (255,255,255), # The color of entries/values in the table
 
-
-    # ! All characters should have the same height in the font
-    "font": os.path.join(BASE_DIR, "assets", "fonts", "cascadia.ttf"),
 
     # The text as array -> first value is the text and the second the color of the texts
     "player_number_unsuccessful": [["Sorry, this doesn't work. Please try again", (255,255,255)],
