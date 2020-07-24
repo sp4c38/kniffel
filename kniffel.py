@@ -88,7 +88,6 @@ def main():
 
         if first_run or window_updated:
             tablesec.draw(pygame, screen, players, table_sec, settings)
-            tablesec.draw_achievement(pygame, screen, players, settings)
             informationsec.draw(pygame, screen, information_sec, current_player, settings)
 
             pygame.display.flip()

@@ -51,7 +51,31 @@ def create(pygame, window, settings):
     infopg = Information(pygame, window, settings)
     return infopg
 
-def draw_dice(pygame, screen, information_sec, player, settings):
+def draw_current_player_text(pygame, screen, information_sec, player, settings):
+    # Draws text which shows which player has the turn
+
+    player_text = settings["current_player_text"]
+    player_text_size = (information_sec.width, information_sec.crt_player_height)
+    spaced_size = (player_text_size[0] * (1-settings["space_left_right"]), player_text_size[1] * (1-settings["space_top_bottom"]))
+
+    font_size = min(utils.get_font_by_size(pygame, spaced_size, line[0], len(player_text), settings) for line in player_text)
+    font = pygame.font.Font(settings["font"], font_size)
+
+    start_height, spacing = utils.center_obj_height(font.size(player_text[0][0])[1], len(player_text), player_text_size[1])
+
+    for line in player_text:
+        line_text = line[0].format(player.name) # Formated with the name of the player
+        text = font.render(line_text, True, line[1])
+
+        width_pos = utils.center_obj_width(font.size(line_text)[0], 1, player_text_size[0])[0] + information_sec.start_width
+        textpos = (width_pos, start_height)
+
+        screen.blit(text, textpos)
+
+    return
+
+
+def draw_dices(pygame, screen, information_sec, player, settings):
     if not player.current_dices:
         return
 
@@ -91,24 +115,7 @@ def draw_dice_button(pygame, screen, infopg, player, settings):
 
     return
 
-def draw_current_player_text(pygame, screen, infopg, player, settings):
-    # This draws a text, to indicate which player has the turn
-    crt_player_text = (settings["crt_player_text"][0].format(player.name), settings["crt_player_text"][1])
-    crt_player_text_size = (infopg.width, infopg.crt_player_height)
-    spaced_size = (crt_player_text_size[0]*(1-settings["space_left_right"]), crt_player_text_size[1]*(1-settings["space_top_bottom"]))
-
-    font_size = utils.get_font_by_size(pygame, spaced_size, crt_player_text[0], 1, settings)
-    font = pygame.font.Font(settings["font"], font_size)
-    text = font.render(crt_player_text[0], True, crt_player_text[1])
-
-    height_pos = utils.center_obj_height(font.get_height(), 1, crt_player_text_size[1])[0]
-    width_pos = utils.center_obj_width(text.get_width(), 1, crt_player_text_size[0])[0]+infopg.start_width
-
-    screen.blit(text, (width_pos, height_pos))
-
-    return
-
 def draw(pygame, screen, infopg, player, settings):
-    draw_dice_button(pygame, screen, infopg, player, settings)
-    draw_dice(pygame, screen, infopg, player, settings)
     draw_current_player_text(pygame, screen, infopg, player, settings)
+    draw_dices(pygame, screen, infopg, player, settings)
+    draw_dice_button(pygame, screen, infopg, player, settings)

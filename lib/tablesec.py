@@ -98,6 +98,7 @@ def draw(pygame, screen, players, table, settings):
     draw_outline(pygame, screen, table)
     draw_detail_column(pygame, screen, settings, table)
     draw_player_columns(pygame, screen, players, table, settings)
+    draw_achievement(pygame, screen, players, settings)
 
     return
 

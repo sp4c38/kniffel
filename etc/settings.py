@@ -48,8 +48,6 @@ settings = {
                        ["Chance", (0,255,240)]]
                      ],
 
-    "crt_player_section_height": 0.15, # The ratio of the total height for the section which displays which player currently has the turn
-
     "dice_images": {
         # The images for the different possibilities to throw the dice
         1: os.path.join(BASE_DIR, "assets", "dice_numbers", "one.png"),
@@ -88,19 +86,18 @@ settings = {
     "space_top_bottom": 0.3, # Margin to the top and bottom (together) to make text fit more nicely
 
     "player_text": [["Player {}", (255,255,255)]], # Text displayed in the first cell of each player column
-                                                 # Formats it with the player's name
+                                                   # Formats it with the player's name
+
+    "crt_player_section_height": 0.15, # The ratio of the total height for the section which displays which player currently has the turn
+    "current_player_text": [["It's Player {}'s turn.", (255,255,255)]], # Text which shows which player has the turn
+                                                                        # Formts it with the player's name
+
 
     "bg_color": (0,0,0),
 
 
     "table_value_color": (255,255,255), # The color of entries/values in the table
 
-
-    # The portions in percent as decimal of the width of certain sections of the width from the table
-    # Maximal players allowed / below 0, 0 and 1 aren't included
-
-    # The text which is shown in the most top line for a player
-    "crt_player_text": ("It's Player {}'s turn.", (255,255,255)), # The text which shows which player has the turn / No multiline allowed
 
     # ! All characters should have the same height in the font
     "font": os.path.join(BASE_DIR, "assets", "fonts", "cascadia.ttf"),
