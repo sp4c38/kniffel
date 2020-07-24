@@ -48,8 +48,8 @@ class Information:
 def create(pygame, window, settings):
     # Init the Information class with important attributes for drawing the information section later
 
-    infopg = Information(pygame, window, settings)
-    return infopg
+    information_sec = Information(pygame, window, settings)
+    return information_sec
 
 def draw_current_player_text(pygame, screen, information_sec, player, settings):
     # Draws text which shows which player has the turn
@@ -79,9 +79,9 @@ def draw_current_player_text(pygame, screen, information_sec, player, settings):
 
 def draw_dices(pygame, screen, information_sec, player, settings):
     if not player.current_dices:
-        return
+        return False
 
-    player_dices = [information_sec.dice_images[x] for x in sorted(player.current_dices)]
+    player_dices = [information_sec.dice_images[x] for x in sorted(player.current_dices)] # Asign images for thrown dices
 
     start_width, spacing = utils.center_obj_width(information_sec.dice_size[0], len(player_dices), information_sec.width)
     start_height = utils.center_obj_height(information_sec.dice_size[1], 1, information_sec.dice_section_height)[0] + information_sec.dice_section_start
@@ -95,29 +95,31 @@ def draw_dices(pygame, screen, information_sec, player, settings):
 
     return
 
-def draw_dice_button(pygame, screen, infopg, player, settings):
-    dice_button_size = (infopg.width, infopg.dice_button_height)
-    pygame.draw.rect(screen, infopg.dice_button_color, infopg.dice_button_rect) # surface, color, rectangle
+def draw_dice_button(pygame, screen, information_sec, player, settings):
+    dice_button_size = (information_sec.width, information_sec.dice_button_height)
+    pygame.draw.rect(screen, information_sec.dice_button_color, information_sec.dice_button_rect) # surface, color, rectangle
 
-    spaced_size = (dice_button_size[0]*(1-settings["space_left_right"]), dice_button_size[1]*(1-settings["space_top_bottom"])) # The size of the button reduced to make the text look good
+    spaced_size = (dice_button_size[0] * (1-settings["space_left_right"]), dice_button_size[1] * (1-settings["space_top_bottom"])) # The size of the button reduced to make the text look good
 
-    dice_btn_text = settings["dice_button_text"]
-    font_size = min([utils.get_font_by_size(pygame, spaced_size, name[0], len(dice_btn_text), settings) for name in dice_btn_text])
+    button_text = settings["dice_button_text"]
+    font_size = min([utils.get_font_by_size(pygame, spaced_size, line[0], len(button_text), settings) for line in button_text])
     font = pygame.font.Font(settings["font"], font_size)
 
-    start_point, summand = utils.center_obj_height(font.get_height(), len(dice_btn_text), dice_button_size[1])
+    start_height, spacing = utils.center_obj_height(font.size(button_text[0][0])[1], len(button_text), dice_button_size[1])
 
-    for name in dice_btn_text:
-        text = font.render(name[0], True, name[1])
-        textpos = (utils.center_obj_width(text.get_width(), 1, dice_button_size[0])[0]+infopg.dice_button_rect.left, infopg.dice_button_rect.top+start_point)
+    for line in button_text:
+        text = font.render(line[0], True, line[1])
+
+        width_pos = utils.center_obj_width(font.size(line[0])[0], 1, dice_button_size[0])[0] + information_sec.dice_button_rect.left
+        textpos = (width_pos, information_sec.dice_button_rect.top + start_height)
 
         screen.blit(text, textpos)
 
-        start_point += summand
+        start_height += spacing
 
     return
 
-def draw(pygame, screen, infopg, player, settings):
-    draw_current_player_text(pygame, screen, infopg, player, settings)
-    draw_dices(pygame, screen, infopg, player, settings)
-    draw_dice_button(pygame, screen, infopg, player, settings)
+def draw(pygame, screen, information_sec, player, settings):
+    draw_current_player_text(pygame, screen, information_sec, player, settings)
+    draw_dices(pygame, screen, information_sec, player, settings)
+    draw_dice_button(pygame, screen, information_sec, player, settings)
