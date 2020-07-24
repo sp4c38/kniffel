@@ -5,7 +5,7 @@ BASE_DIR = os.path.join(os.path.expanduser("~"), os.getcwd())
 
 settings = {
     "debug": True,
-    "update_time": 0.1, # In which interval the window shall update (in seconds) (one update every 0.1 second would be 10 fps)
+    "update_time": 0.03, # In which interval the window shall update (in seconds) (one update every 0.1 second would be 10 fps)
 
     "error_color": 91, # The ANSI color code to highlight errors in the program output
 
