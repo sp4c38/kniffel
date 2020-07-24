@@ -163,10 +163,12 @@ def ask_player_number(pygame, screen, window, settings):
     return players_to_play
 
 def play_music(pygame, settings):
+    # Play some background music
     music = pygame.mixer.music.load(settings["window_music"]) # Load music
     pygame.mixer.music.play(loops=-1) # Start playing / -1 is indefinitely
 
     return
+
 
 def set_window_icon(pygame, settings):
     icon = pygame.image.load(settings["window_icon"]) # Load window icon

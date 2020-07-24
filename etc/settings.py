@@ -16,6 +16,8 @@ settings = {
 
     "font": os.path.join(BASE_DIR, "assets", "fonts", "machinegunk.ttf"), # The font of the text in the game window
 
+    "intro_video": os.path.join(BASE_DIR, "assets", "videos", "kniffel_intro.mp4"), # Short intro video which is played when the game starts
+
     "table_ratio": 0.70,            # Ratio of the table section to the total width
                                     # Number in percent, must < 1
 
