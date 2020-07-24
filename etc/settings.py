@@ -89,8 +89,8 @@ settings = {
                                                    # Formats it with the player's name
 
     "crt_player_section_height": 0.15, # The ratio of the total height for the section which displays which player currently has the turn
-    "current_player_text": [["It's Player {}'s turn.", (255,255,255)]], # Text which shows which player has the turn
-                                                                        # Formts it with the player's name
+    "current_player_text": [["It's Player {}'s turn.", (113,255,255)],  # Text which shows which player has the turn
+                            ["Let's go!", (255,255,0)]],            # Formates it with the player's name
 
 
     "bg_color": (0,0,0),

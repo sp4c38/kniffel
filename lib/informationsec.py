@@ -70,6 +70,8 @@ def draw_current_player_text(pygame, screen, information_sec, player, settings):
         width_pos = utils.center_obj_width(font.size(line_text)[0], 1, player_text_size[0])[0] + information_sec.start_width
         textpos = (width_pos, start_height)
 
+        start_height += spacing
+
         screen.blit(text, textpos)
 
     return
