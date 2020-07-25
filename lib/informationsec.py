@@ -14,7 +14,7 @@ class Information:
         self.dice_section_height = self.height * settings["dice_section_ratio"] # The height of the dice section
         self.dice_number = 5 # Normal Kniffel rounds use 5 dices. You could change this number without any errors.
 
-        self.dice_size = utils.get_dice_size(self.width, self.dice_section_height, self.dice_number)
+        self.dice_size = utils.get_dice_size(self.width, self.dice_section_height, self.dice_number, 2)
 
         self.dice_images = {} # The images for the different possibilities to throw the dice
 

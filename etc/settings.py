@@ -67,9 +67,10 @@ settings = {
         5: os.path.join(BASE_DIR, "assets", "dice_numbers", "five.png"),
         6: os.path.join(BASE_DIR, "assets", "dice_numbers", "six.png"),
     },
-    "dice_section_ratio": 0.2, # Ratio of the height of the dice section to the total height of the information section
 
-    "throws_remain_section_ratio": 0.2, # Ratio of the height of the rounds remaining section to the total height of the information section
+    "dice_section_ratio": 0.15, # Ratio of the height of the dice section to the total height of the information section
+
+    "throws_remain_section_ratio": 0.40, # Ratio of the height of the rounds remaining section to the total height of the information section
     "throws_remain_text": [["You can still roll", (255,255,255)],
                            ["the dice {} times!", (255,255,255)],
                           ],

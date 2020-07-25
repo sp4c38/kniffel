@@ -56,17 +56,22 @@ def center_obj_height(obj_height, list_length, box_height):
 
     return start_height, spacing
 
-def get_dice_size(max_width, max_height, dices):
+def get_dice_size(max_width, max_height, dices, levels):
     # Returns the size for one dice to not overgo the max width and the max height of the section
     # max_width ... width of the section
     # max_height ... height of the section
     # dices ... number of dices
+    # levels ... number of levels of how many dices can be placed under each other
 
     # Dices must be squares
+
+    max_height /= levels
 
     width_divided = max_width / dices
 
     if width_divided <= max_height:
+        print("Check1")
         return (int(width_divided), int(width_divided))
-    elif width_divided >= max_height :
+    elif width_divided > max_height:
+        print("Check2")
         return (int(max_height), int(max_height))
