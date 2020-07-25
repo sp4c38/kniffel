@@ -5,13 +5,14 @@ BASE_DIR = os.path.join(os.path.expanduser("~"), os.getcwd())
 
 settings = {
     "debug": True,
-    "update_time": 0.03, # In which interval the window shall update (in seconds) (one update every 0.1 second would be 10 fps)
+    "update_time": 0.04, # In which interval the window shall update (in seconds) (one update every 0.1 second would be 10 fps)
 
+    "bg_color": (26, 26, 26), # The color of the games background
     "error_color": 91, # The ANSI color code to highlight errors in the program output
 
     "window_resizable": True, # Activate or deactivate window resizable option
     "window_icon": os.path.join(BASE_DIR, "assets", "window_icon.png"), # The icon of the game
-    "window_size": (1000, 800),     # The size of the default window size in (width, height)
+    "window_size": (1350, 835),     # The size of the default window size in (width, height)
     "window_name": "Kniffel Yahtzee", # The name of the window
 
     "font": os.path.join(BASE_DIR, "assets", "fonts", "machinegunk.ttf"), # The font of the text in the game window
@@ -37,7 +38,7 @@ settings = {
     "player_number_successful": [["Cool,", (255,255,255)], ["there are {} players.", (255,255,255)]],
 
     "table_line_color": (255,255,255), # The color of the lines which make up the table
-    "table_line_thickness": 5, # The thickness of the lines which make up the table
+    "table_line_thickness": 3, # The thickness of the lines which make up the table
 
     # Both must sum up to 1 (100%):
     "table_name_section": 0.30, # The ratio of the total table width for the column with the names of the goals (e.g. Aces, Twos)
@@ -68,9 +69,9 @@ settings = {
         6: os.path.join(BASE_DIR, "assets", "dice_numbers", "six.png"),
     },
 
-    "dice_section_ratio": 0.15, # Ratio of the height of the dice section to the total height of the information section
+    "dice_section_ratio": 0.25, # Ratio of the height of the dice section to the total height of the information section
 
-    "throws_remain_section_ratio": 0.40, # Ratio of the height of the rounds remaining section to the total height of the information section
+    "throws_remain_section_ratio": 0.30, # Ratio of the height of the rounds remaining section to the total height of the information section
     "throws_remain_text": [["You can still roll", (255,255,255)],
                            ["the dice {} times!", (255,255,255)],
                           ],
@@ -106,8 +107,6 @@ settings = {
 
     "player_text": [["Player {}", (255,255,255)]], # Text displayed in the first cell of each player column
                                                    # Formats it with the player's name
-
-    "bg_color": (0,0,0),
 
 
     "table_value_color": (255,255,255), # The color of entries/values in the table

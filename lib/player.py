@@ -81,13 +81,20 @@ class Player:
     def update_dices(self, pygame, information_sec):
         # Calculates the rectangle position for the dices
         # Can be run the first time and when window resized
+        level_distri = {0: 0, 1: 0}
+        for dice in self.dices:
+            if dice.level == 0:
+                level_distri[0] += 1
+            elif dice.level == 1:
+                level_distri[1] += 1
 
-        start_width1, dice_spacing = utils.center_obj_width(information_sec.dice_size[0], information_sec.dice_number, information_sec.width)
+        start_width1, dice_spacing = utils.center_obj_width(information_sec.dice_size[0], level_distri[0], information_sec.width)
         start_height1, line_spacing = utils.center_obj_height(information_sec.dice_size[1], 2, information_sec.dice_section_height)
         start_width1 += information_sec.start_width
         start_height1 += information_sec.crt_player_height
 
-        start_width2 = start_width1
+        start_width2, dice_spacing = utils.center_obj_width(information_sec.dice_size[0], level_distri[1], information_sec.width)
+        start_width2 += information_sec.start_width
         start_height2 = start_height1 + line_spacing
 
         for dice in self.dices:
@@ -108,6 +115,8 @@ class Player:
             if dice.level == 0:
                 random_number = random.randint(min(information_sec.dice_images), max(information_sec.dice_images))
                 dice.set_value(random_number)
+
+        self.throws -= 1
 
         self.update_dices(pygame, information_sec)
 
@@ -209,6 +218,8 @@ def validate_click(pygame, event, player, all_players, information_sec, settings
                                       # Because if first item has no value all other also have no value
                 if make_action(player.dices, achievement, settings):
                     player.remove_stored_dices()
+                    player.throws = settings["dice_throws"] # Revert the throws for the player back to 3
+                                                            # that he can throw the dice again 3 times the next turn
                     all_players = switch_turn(all_players, player)
                     updated = True
                     updated_achievement = True
@@ -226,7 +237,11 @@ def validate_click(pygame, event, player, all_players, information_sec, settings
         player.update_dices(pygame, information_sec)
 
     if information_sec.dice_button_rect.collidepoint(click_position):
-        player.roll_dices(pygame, information_sec, settings)
-        updated = True
+        if player.throws == 0: # If the player has taken up all his throws
+                               # the dices can't be rolled anymore
+            pass
+        else:
+            player.roll_dices(pygame, information_sec, settings)
+            updated = True
 
     return updated, updated_achievement, all_players

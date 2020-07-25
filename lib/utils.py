@@ -70,8 +70,6 @@ def get_dice_size(max_width, max_height, dices, levels):
     width_divided = max_width / dices
 
     if width_divided <= max_height:
-        print("Check1")
         return (int(width_divided), int(width_divided))
     elif width_divided > max_height:
-        print("Check2")
         return (int(max_height), int(max_height))
