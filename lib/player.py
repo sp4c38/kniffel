@@ -3,10 +3,11 @@ from lib import rules, utils
 import random
 
 class Player:
-    def __init__(self, name):
+    def __init__(self, name, settings):
         self.is_current_player = False # Indicates if this player is the one which currently has the turn
         self.dices = [] # Stores the dices currently thrown or selected by the player
         self.name = name # The name of the player
+        self.throws = settings["dice_throws"] # Number of throws a player has in a single round
 
     class Event:
         # Event holds attributes for one single achievement a player can reach
@@ -84,7 +85,7 @@ class Player:
         start_width1, dice_spacing = utils.center_obj_width(information_sec.dice_size[0], information_sec.dice_number, information_sec.width)
         start_height1, line_spacing = utils.center_obj_height(information_sec.dice_size[1], 2, information_sec.dice_section_height)
         start_width1 += information_sec.start_width
-        start_height1 += information_sec.dice_section_start
+        start_height1 += information_sec.crt_player_height
 
         start_width2 = start_width1
         start_height2 = start_height1 + line_spacing
@@ -123,7 +124,7 @@ def init_players(pygame, player_amount, table_sec, information_sec, settings):
     player_name = 1
 
     for p in range(player_amount):
-        player = Player(str(player_name))
+        player = Player(str(player_name), settings)
         player.add_progress(pygame, table_sec, start_width)
         player.add_dices(information_sec)
         players.append(player)

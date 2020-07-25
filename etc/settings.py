@@ -52,6 +52,12 @@ settings = {
                        ["Chance", (0,255,240)]]
                      ],
 
+    "dice_throws": 3, # Number of throws a player has in a single round
+
+    "crt_player_section_ratio": 0.2, # The ratio of the total height for the section which displays which player currently has the turn
+    "current_player_text": [["It's Player {}'s turn.", (113,255,255)],  # Text which shows which player has the turn
+                            ["Let's go!", (255,255,0)]],            # Formates it with the player's name
+
     "dice_images": {
         # The images for the different possibilities to throw the dice
         1: os.path.join(BASE_DIR, "assets", "dice_numbers", "one.png"),
@@ -61,7 +67,15 @@ settings = {
         5: os.path.join(BASE_DIR, "assets", "dice_numbers", "five.png"),
         6: os.path.join(BASE_DIR, "assets", "dice_numbers", "six.png"),
     },
-    "dice_button_height": 0.1, # The ratio of the total height of the information section assigned for the dice button
+    "dice_section_ratio": 0.2, # Ratio of the height of the dice section to the total height of the information section
+
+    "throws_remain_section_ratio": 0.2, # Ratio of the height of the rounds remaining section to the total height of the information section
+    "throws_remain_text": [["You can still roll", (255,255,255)],
+                           ["the dice {} times!", (255,255,255)],
+                          ],
+
+
+    "dice_button_ratio": 0.1, # The ratio of the total height of the information section assigned for the dice button
     "dice_button_color": (242,255,5), # The background color of the dice button
     "dice_button_text": [["Throw The Dices", (139,69,19)]], # The text for the dice button
 
@@ -92,11 +106,6 @@ settings = {
     "player_text": [["Player {}", (255,255,255)]], # Text displayed in the first cell of each player column
                                                    # Formats it with the player's name
 
-    "crt_player_section_height": 0.15, # The ratio of the total height for the section which displays which player currently has the turn
-    "current_player_text": [["It's Player {}'s turn.", (113,255,255)],  # Text which shows which player has the turn
-                            ["Let's go!", (255,255,0)]],            # Formates it with the player's name
-
-
     "bg_color": (0,0,0),
 
 
@@ -108,9 +117,5 @@ settings = {
                                    ["A maximum of {} players can play.", (255,255,255)]
                                   ],
 
-
-    # This is the maximum of the dice size in height from the height in decimal percent
-    # No specific specification can made because: width=height - mostly wouldn't fit with width with specification
-    "dice_size_maximum": 0.2,
 
 }
