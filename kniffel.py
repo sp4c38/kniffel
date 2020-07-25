@@ -83,6 +83,7 @@ def main():
                     if updated_achievement:
                         current_player = player.get_current(players)
                         if verbose: print("Switched the current player.")
+
                     if verbose and updated_dices: print("Rolled the dices.")
                     if verbose: print("Validated mousebutton-down click.")
 

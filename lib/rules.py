@@ -2,12 +2,15 @@
 
 def how_may_of(dices):
     # Find out how many values there are for a number
-    out = {1:dices.count(1), 2:dices.count(2), 3:dices.count(3), 4:dices.count(4),
-           5:dices.count(5), 6:dices.count(6)}
+    out = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
+
+    for dice in dices:
+        out[dice.value] += 1
+
     return out
 
 def check(dices, settings):
-    dices = sorted(dices)
+    dices = sorted(dices, key=lambda dice: dice.value) # Sort by the dices value
     amount_of = how_may_of(dices) # Amount of times a certain number appears
 
     validation = {"aces": None, "twos": None, "threes": None, "fours": None, "fives": None,

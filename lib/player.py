@@ -5,7 +5,7 @@ import random
 class Player:
     def __init__(self, name):
         self.is_current_player = False # Indicates if this player is the one which currently has the turn
-        self.current_dices = [] # Stores the dices currently thrown or selected by the player
+        self.dices = [] # Stores the dices currently thrown or selected by the player
         self.name = name # The name of the player
 
     class Event:
@@ -68,20 +68,20 @@ class Player:
             self.level = dice_level
 
     def add_dices(self, information_sec):
-        # Adds the correct number of dices as DiceField objects in the current_dices list
+        # Adds the correct number of dices as DiceField objects in the dices list
 
         for num in range(information_sec.dice_number):
             dice = self.DiceField()
-            self.current_dices.append(dice)
+            self.dices.append(dice)
 
     def update_dices(self, pygame, information_sec):
-        # Calculates the rectangle position for the dice already in current_dices
+        # Calculates the rectangle position for the dices
         # Can be run the first time and when window resized
 
         start_width, spacing = utils.center_obj_width(information_sec.dice_size[0], information_sec.dice_number, information_sec.width)
         start_height = utils.center_obj_height(information_sec.dice_size[1], 1, information_sec.dice_section_height)[0] + information_sec.dice_section_start
 
-        for dice in self.current_dices:
+        for dice in self.dices:
             dice_rect = pygame.Rect(start_width + information_sec.start_width, start_height, information_sec.dice_size[0], information_sec.dice_size[1])
             dice.set_rect(dice_rect)
 
@@ -91,14 +91,15 @@ class Player:
             start_width += spacing
 
     def roll_dices(self, pygame, information_sec, settings):
-        for dice in self.current_dices:
+        for dice in self.dices:
             if dice.level == 0:
                 random_number = random.randint(min(information_sec.dice_images), max(information_sec.dice_images))
                 dice.set_value(random_number)
                 self.update_dices(pygame, information_sec)
 
     def remove_stored_dices(self):
-        self.current_dices = []
+        for dice in self.dices:
+            dice.value = None
 
 def init_players(pygame, player_amount, table_sec, information_sec, settings):
     players = [] # A list which later will hold a Player class for each player
@@ -184,14 +185,14 @@ def validate_click(pygame, event, player, all_players, information_sec, settings
 
     click_position = event.pos
     point_distribution = settings["point_distribution"]
-    player_dices = player.current_dices # The dices of the current player
 
     for achievement in player.progress:
         achievement = player.progress[achievement]
 
         if achievement.position.collidepoint(click_position): # Check if the clicked position intervenes with the cell of a achievment
-            if player_dices:
-                if make_action(player.current_dices, achievement, settings):
+            if player.dices[0].value: # Check if the first item has any value
+                                      # Because if first item has no value all other also have no value
+                if make_action(player.dices, achievement, settings):
                     player.remove_stored_dices()
                     all_players = switch_turn(all_players, player)
                     updated_achievement = True
