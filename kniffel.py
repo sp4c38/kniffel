@@ -41,8 +41,8 @@ def main():
     table_sec = tablesec.create(window, player_number, settings) # Get table class (with table attributes)
     information_sec = informationsec.create(pygame, window, settings)
     if verbose: print("Calculated table and information section sizes.")
-
-    players = player.init_players(pygame, player_number, table_sec, information_sec, window)
+    print(information_sec.dice_size)
+    players = player.init_players(pygame, player_number, table_sec, information_sec, settings)
 
     if settings["play_music"]:
         # Play nice background music if activated
@@ -71,12 +71,12 @@ def main():
                 if e.type == pygame.VIDEORESIZE:
                     # Recalculate all sizes for the elements when the window is resized
                     if verbose: print("Window resized. Resizing elements.")
-                    screen, window, table_sec, information_sec = window_code.resize_window(pygame, player_number, e, settings)
+                    screen, window, table_sec, information_sec = window_code.resize_window(pygame, players, e, settings)
                     players = player.recalculate_positions(pygame, players, table_sec, information_sec)
                     window_updated = True
             if e.type == pygame.MOUSEBUTTONDOWN:
                 if e.button == 1: # A left-click on the mouse
-                    updated_achievement, updated_dices, players = player.validate_click(e, current_player, players, information_sec, settings)
+                    updated_achievement, updated_dices, players = player.validate_click(pygame, e, current_player, players, information_sec, settings)
                     if updated_achievement or updated_dices:
                         window_updated = True
 

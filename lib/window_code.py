@@ -21,14 +21,14 @@ class WindowClass:
         self.table_width = self.width * settings["table_ratio"]
         self.information_width = self.width * settings["information_ratio"]
 
-def resize_window(pygame, player_number, event, settings):
+def resize_window(pygame, players, event, settings):
     new_size = event.size
     window = WindowClass(new_size[0], new_size[1])
     window.add_arrangement(settings)
 
     screen = pygame.display.set_mode((window.width, window.height), pygame.RESIZABLE)
 
-    table_sec = tablesec.create(window, player_number, settings)
+    table_sec = tablesec.create(window, len(players), settings)
     information_sec = informationsec.create(pygame, window, settings)
 
     screen.fill(settings["bg_color"])

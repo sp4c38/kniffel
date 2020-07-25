@@ -1,4 +1,4 @@
-from lib import rules
+from lib import rules, utils
 
 import random
 
@@ -43,10 +43,64 @@ class Player:
     def update_achievement(self, name, pygame, table, width_start):
         self.progress[name].position = pygame.Rect(width_start, (self.progress[name].achievement_counter*table.one_line_height), table.detail_column_size[0], table.one_line_height)
 
+    class DiceField:
+        # This class is created and stored for each single dice to control there level, image and position
+        def __init__(self):
+            # In Kniffel you can roll the dice and than put aside some of the rolled dices
+            # When dices are put aside they must be drawn in an extra row
+            # To indicate in which row the dice currently is level is used.
+            # 0 means that it can be rolled again and 1 means that it was put aside
+            self.level = 0
+            self.image = None
+            self.rectangle = None
+            self.value = None
+
+        def set_value(self, new_value):
+            self.value = new_value
+
+        def set_image(self, dice_image):
+            self.image = dice_image
+
+        def set_rect(self, rect):
+            self.rectangle = rect
+
+        def change_level(self, dice_level):
+            self.level = dice_level
+
+    def add_dices(self, information_sec):
+        # Adds the correct number of dices as DiceField objects in the current_dices list
+
+        for num in range(information_sec.dice_number):
+            dice = self.DiceField()
+            self.current_dices.append(dice)
+
+    def update_dices(self, pygame, information_sec):
+        # Calculates the rectangle position for the dice already in current_dices
+        # Can be run the first time and when window resized
+
+        start_width, spacing = utils.center_obj_width(information_sec.dice_size[0], information_sec.dice_number, information_sec.width)
+        start_height = utils.center_obj_height(information_sec.dice_size[1], 1, information_sec.dice_section_height)[0] + information_sec.dice_section_start
+
+        for dice in self.current_dices:
+            dice_rect = pygame.Rect(start_width + information_sec.start_width, start_height, information_sec.dice_size[0], information_sec.dice_size[1])
+            dice.set_rect(dice_rect)
+
+            if dice.value:
+                dice.set_image(information_sec.dice_images[dice.value])
+
+            start_width += spacing
+
+    def roll_dices(self, pygame, information_sec, settings):
+        for dice in self.current_dices:
+            if dice.level == 0:
+                random_number = random.randint(min(information_sec.dice_images), max(information_sec.dice_images))
+                dice.set_value(random_number)
+                self.update_dices(pygame, information_sec)
+
     def remove_stored_dices(self):
         self.current_dices = []
 
-def init_players(pygame, player_amount, table_sec, information_sec, window):
+def init_players(pygame, player_amount, table_sec, information_sec, settings):
     players = [] # A list which later will hold a Player class for each player
 
     start_width = table_sec.detail_column_size[0] # The width from which the first player columns starts
@@ -56,6 +110,7 @@ def init_players(pygame, player_amount, table_sec, information_sec, window):
     for p in range(player_amount):
         player = Player(str(player_name))
         player.add_progress(pygame, table_sec, start_width)
+        player.add_dices(information_sec)
         players.append(player)
 
         player_name += 1 # Add one each time so that the player name is different for each player
@@ -68,6 +123,8 @@ def recalculate_positions(pygame, players, table_sec, information_sec):
     width_pointer = table_sec.detail_column_size[0]
 
     for plyr in players:
+        plyr.update_dices(pygame, information_sec)
+
         for achievement in plyr.progress:
             plyr.update_achievement(achievement, pygame, table_sec, width_pointer)
 
@@ -103,17 +160,6 @@ def get_current(players):
 
     return None
 
-def roll_dices(player, information_sec, settings):
-    # Rolles the dices
-
-    player.remove_stored_dices()
-
-    for x in range(information_sec.dice_number):
-        random_number = random.randint(min(settings["dice_images"]), max(settings["dice_images"]))
-        player.current_dices.append(random_number)
-
-    return
-
 def make_action(dices, achievement, settings):
     # This checks if the selected achievement to enter the value is valid
 
@@ -129,7 +175,7 @@ def make_action(dices, achievement, settings):
         return False
 
 
-def validate_click(event, player, all_players, information_sec, settings):
+def validate_click(pygame, event, player, all_players, information_sec, settings):
     # event ... mouse click input event
     # player ... current player
 
@@ -152,7 +198,7 @@ def validate_click(event, player, all_players, information_sec, settings):
 
 
     if information_sec.dice_button_rect.collidepoint(click_position):
-        roll_dices(player, information_sec, settings)
+        player.roll_dices(pygame, information_sec, settings)
         updated_dices = True
 
     return updated_achievement, updated_dices, all_players
