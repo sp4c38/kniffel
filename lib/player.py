@@ -215,7 +215,7 @@ def validate_click(pygame, event, player, all_players, information_sec, settings
     if player.dices[0].value != None: # If first item has a value all others also have
         # If any dice is clicked the level is changed (dice put aside) and the dice positions
         # are updated
-        
+
         for dice in player.dices:
             if dice.position.collidepoint(click_position):
                 dice.change_level()
