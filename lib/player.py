@@ -100,6 +100,7 @@ class Player:
     def remove_stored_dices(self):
         for dice in self.dices:
             dice.value = None
+            dice.image = None
 
 def init_players(pygame, player_amount, table_sec, information_sec, settings):
     players = [] # A list which later will hold a Player class for each player

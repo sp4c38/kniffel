@@ -78,17 +78,14 @@ def welcome_text(pygame, screen, window, user, settings):
 
         text = font.render(line[0], True, line[1])
         textpos = (utils.center_obj_width(font.size(line[0])[0], 1, window.width)[0], start_height) # The position of the text
-        print(textpos)
-        print(spaced_size)
         screen.blit(text, textpos) # Add the text to the screen at textpos
 
         start_height += spacing # Increase start_height for the next line
         line_counter += 1
 
 
-    for x in range(2): # Must do 2 times because of a pygame problem on macos
-        pygame.event.get()
-        pygame.display.flip()
+    pygame.event.get()
+    pygame.display.flip()
 
     time.sleep(5)
 
@@ -149,9 +146,8 @@ def ask_player_number(pygame, screen, window, settings):
 
                     start_point += spacing
 
-                for x in range(2): # Must do 2 times because of a pygame problem on macos
-                    pygame.event.get()
-                    pygame.display.flip()
+                pygame.event.get()
+                pygame.display.flip()
 
                 if is_successful:
                     time.sleep(4)

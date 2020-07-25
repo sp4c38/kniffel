@@ -37,7 +37,7 @@ def main():
     table_sec = tablesec.create(window, player_number, settings) # Get table class (with table attributes)
     information_sec = informationsec.create(pygame, window, settings)
     if verbose: print("Calculated table and information section sizes.")
-    print(information_sec.dice_size)
+
     players = player.init_players(pygame, player_number, table_sec, information_sec, settings)
 
     if settings["play_music"]:
@@ -72,6 +72,7 @@ def main():
                     window_updated = True
             if e.type == pygame.MOUSEBUTTONDOWN:
                 if e.button == 1: # A left-click on the mouse
+                    if verbose: print("Recoginzed left mousbutton-down click.")
                     updated_achievement, updated_dices, players = player.validate_click(pygame, e, current_player, players, information_sec, settings)
                     if updated_achievement or updated_dices:
                         window_updated = True
@@ -81,7 +82,6 @@ def main():
                         if verbose: print("Switched the current player.")
 
                     if verbose and updated_dices: print("Rolled the dices.")
-                    if verbose: print("Validated mousebutton-down click.")
 
         if first_run or window_updated:
             tablesec.draw(pygame, screen, players, table_sec, settings)

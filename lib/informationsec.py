@@ -61,7 +61,7 @@ def draw_current_player_text(pygame, screen, information_sec, player, settings):
 
 
 def draw_dices(pygame, screen, information_sec, player, settings):
-    if player.dices[0].image == None: # If first item has no value/image assigned the dices weren't yet thrown
+    if player.dices[0].value == None: # If first item has no value/image assigned the dices weren't yet thrown
         return
 
     for dice in player.dices:

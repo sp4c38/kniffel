@@ -28,7 +28,8 @@ settings = {
 
     # A text displayed to ask how many players want to play kniffel
     "player_number_text": [["How many players want to play?", (255,255,255)], \
-                           ["Please press the number on the keyboard. (max. {})", (255,255,255)], \
+                           ["Please press the number", (255,255,255)], \
+                           ["on the keyboard. (max. {})", (255,255,255)]
                           ],
 
     "max_players": 6, # The maximal amount of players allowed to play
