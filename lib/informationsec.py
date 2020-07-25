@@ -65,7 +65,7 @@ def draw_dices(pygame, screen, information_sec, player, settings):
         return
 
     for dice in player.dices:
-        dicepos = (dice.rectangle.left, dice.rectangle.top)
+        dicepos = (dice.position.left, dice.position.top)
 
         screen.blit(dice.image, dicepos)
 

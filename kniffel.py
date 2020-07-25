@@ -70,18 +70,18 @@ def main():
                     screen, window, table_sec, information_sec = window_code.resize_window(pygame, players, e, settings)
                     players = player.recalculate_positions(pygame, players, table_sec, information_sec)
                     window_updated = True
+
             if e.type == pygame.MOUSEBUTTONDOWN:
                 if e.button == 1: # A left-click on the mouse
                     if verbose: print("Recoginzed left mousbutton-down click.")
-                    updated_achievement, updated_dices, players = player.validate_click(pygame, e, current_player, players, information_sec, settings)
-                    if updated_achievement or updated_dices:
+                    updated, updated_achievement, players = player.validate_click(pygame, e, current_player, players, information_sec, settings)
+
+                    if updated:
                         window_updated = True
 
                     if updated_achievement:
                         current_player = player.get_current(players)
                         if verbose: print("Switched the current player.")
-
-                    if verbose and updated_dices: print("Rolled the dices.")
 
         if first_run or window_updated:
             tablesec.draw(pygame, screen, players, table_sec, settings)
