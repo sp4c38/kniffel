@@ -52,7 +52,7 @@ class Player:
             # 0 means that it can be rolled again and 1 means that it was put aside
             self.level = 0
             self.image = None
-            self.rectangle = None
+            self.position = None
             self.value = None
 
         def set_value(self, new_value):
@@ -62,10 +62,13 @@ class Player:
             self.image = dice_image
 
         def set_rect(self, rect):
-            self.rectangle = rect
+            self.position = rect
 
-        def change_level(self, dice_level):
-            self.level = dice_level
+        def change_level(self):
+            if self.level == 0:
+                self.level = 1
+            elif self.level == 1:
+                self.level = 0
 
     def add_dices(self, information_sec):
         # Adds the correct number of dices as DiceField objects in the dices list
@@ -78,24 +81,34 @@ class Player:
         # Calculates the rectangle position for the dices
         # Can be run the first time and when window resized
 
-        start_width, spacing = utils.center_obj_width(information_sec.dice_size[0], information_sec.dice_number, information_sec.width)
-        start_height = utils.center_obj_height(information_sec.dice_size[1], 1, information_sec.dice_section_height)[0] + information_sec.dice_section_start
+        start_width1, dice_spacing = utils.center_obj_width(information_sec.dice_size[0], information_sec.dice_number, information_sec.width)
+        start_height1, line_spacing = utils.center_obj_height(information_sec.dice_size[1], 2, information_sec.dice_section_height)
+        start_width1 += information_sec.start_width
+        start_height1 += information_sec.dice_section_start
+
+        start_width2 = start_width1
+        start_height2 = start_height1 + line_spacing
 
         for dice in self.dices:
-            dice_rect = pygame.Rect(start_width + information_sec.start_width, start_height, information_sec.dice_size[0], information_sec.dice_size[1])
-            dice.set_rect(dice_rect)
+            if dice.level == 0:
+                dice_rect = pygame.Rect(start_width1, start_height1, information_sec.dice_size[0], information_sec.dice_size[1])
+                dice.set_rect(dice_rect)
+                start_width1 += dice_spacing
+            elif dice.level == 1:
+                dice_rect = pygame.Rect(start_width2, start_height2, information_sec.dice_size[0], information_sec.dice_size[1])
+                dice.set_rect(dice_rect)
+                start_width2 += dice_spacing
 
             if dice.value:
                 dice.set_image(information_sec.dice_images[dice.value])
-
-            start_width += spacing
 
     def roll_dices(self, pygame, information_sec, settings):
         for dice in self.dices:
             if dice.level == 0:
                 random_number = random.randint(min(information_sec.dice_images), max(information_sec.dice_images))
                 dice.set_value(random_number)
-                self.update_dices(pygame, information_sec)
+
+        self.update_dices(pygame, information_sec)
 
     def remove_stored_dices(self):
         for dice in self.dices:
@@ -181,8 +194,8 @@ def validate_click(pygame, event, player, all_players, information_sec, settings
     # event ... mouse click input event
     # player ... current player
 
+    updated = False
     updated_achievement = False
-    updated_dices = False
 
     click_position = event.pos
     point_distribution = settings["point_distribution"]
@@ -196,11 +209,23 @@ def validate_click(pygame, event, player, all_players, information_sec, settings
                 if make_action(player.dices, achievement, settings):
                     player.remove_stored_dices()
                     all_players = switch_turn(all_players, player)
+                    updated = True
                     updated_achievement = True
 
+    if player.dices[0].value != None: # If first item has a value all others also have
+        # If any dice is clicked the level is changed (dice put aside) and the dice positions
+        # are updated
+        
+        for dice in player.dices:
+            if dice.position.collidepoint(click_position):
+                dice.change_level()
+
+                updated = True
+
+        player.update_dices(pygame, information_sec)
 
     if information_sec.dice_button_rect.collidepoint(click_position):
         player.roll_dices(pygame, information_sec, settings)
-        updated_dices = True
+        updated = True
 
-    return updated_achievement, updated_dices, all_players
+    return updated, updated_achievement, all_players
