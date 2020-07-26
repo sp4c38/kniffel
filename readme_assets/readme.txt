@@ -1,0 +1,1 @@
+This directory contains files which are used for the main or sub-readme files. Those assets are not used by the game itself.

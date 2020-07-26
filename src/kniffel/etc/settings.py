@@ -1,6 +1,7 @@
 import os
+import sys
 
-BASE_DIR = os.path.join(os.path.expanduser("~"), os.getcwd())
+BASE_DIR = os.path.join(os.path.expanduser("~"), sys.path[0])
 
 
 settings = {
@@ -116,6 +117,4 @@ settings = {
     "player_number_unsuccessful": [["Sorry, this doesn't work. Please try again", (255,255,255)],
                                    ["A maximum of {} players can play.", (255,255,255)]
                                   ],
-
-
 }

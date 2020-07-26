@@ -1,0 +1,1 @@
+This directory stores all support files (e.g. Pixelmator Pro .pxd files) which were used to create images and other assets for the game.

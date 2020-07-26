@@ -1,3 +1,11 @@
+# Distribution / packaging
+/build/
+/dist/
+*.egg
+*.eggs
+*.egg-info/
+
+# Other
 __pycache__/
 .DS_Store
 .venv*

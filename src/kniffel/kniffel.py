@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 import sys
 
@@ -27,10 +27,9 @@ def main():
     screen, window = window_code.create_window(pygame, settings)
     if verbose: print(f"Initialized the window with size {window.width}px x {window.height}px.")
 
-    #window_code.welcome_text(pygame, screen, window, user, settings) # Display a welcome text
+    window_code.welcome_text(pygame, screen, window, user, settings) # Display a welcome text
 
-    #player_number = window_code.ask_player_number(pygame, screen, window, settings) # How many players are there?
-    player_number = 2
+    player_number = window_code.ask_player_number(pygame, screen, window, settings) # How many players are there?
 
     if verbose: print(f"{player_number} players are going to play Kniffel!")
 

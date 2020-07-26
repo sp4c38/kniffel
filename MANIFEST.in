@@ -1,0 +1,3 @@
+graft src/kniffel/assets
+recursive-exclude * .DS_Store
+recursive-exclude * __pycache__
