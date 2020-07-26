@@ -89,7 +89,10 @@ class Player:
                 level_distri[1] += 1
 
         start_width1, dice_spacing = utils.center_obj_width(information_sec.dice_size[0], level_distri[0], information_sec.width)
-        start_height1, line_spacing = utils.center_obj_height(information_sec.dice_size[1], 2, information_sec.dice_section_height)
+        if level_distri[1] == 0:
+            start_height1, line_spacing = utils.center_obj_height(information_sec.dice_size[1], 1, information_sec.dice_section_height)
+        else:
+            start_height1, line_spacing = utils.center_obj_height(information_sec.dice_size[1], 2, information_sec.dice_section_height)
         start_width1 += information_sec.start_width
         start_height1 += information_sec.crt_player_height
 
@@ -121,9 +124,11 @@ class Player:
         self.update_dices(pygame, information_sec)
 
     def remove_stored_dices(self):
+        # Remove the dices from the previouse round of a player
         for dice in self.dices:
             dice.value = None
             dice.image = None
+            dice.level = 0 # Put all dices back in the first level
 
 def init_players(pygame, player_amount, table_sec, information_sec, settings):
     players = [] # A list which later will hold a Player class for each player
