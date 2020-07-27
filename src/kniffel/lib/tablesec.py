@@ -128,7 +128,7 @@ class Table:
         for section in settings["table_names"]:
             for achievement in section:
                 counter += 1
-        if counter < 14 or counter > 14:
+        if counter < 15 or counter > 15:
             print(f"\033[{settings['error_color']}mERROR:")
             print(f"There are too many or too less names for the achievements. There are {counter}.")
             sys.exit(1)

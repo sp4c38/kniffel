@@ -7,19 +7,18 @@ import pygame
 import random
 import time
 
-#import IPython;IPython.embed();import sys;sys.exit()
 from kniffel.lib import window_code, utils, tablesec, informationsec, player
 from kniffel.etc import settings as set
+
+if "-v" in sys.argv:
+    # When verbose output is enabled extra information about the game running is outputed
+    verbose = True
 
 def main():
     resources_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
     settings = set.main(resources_path)
 
     verbose = False
-
-    if "-v" in sys.argv:
-        # When verbose output is enabled extra information about the game are outputed
-        verbose = True
 
     pygame.init()
     user = getpass.getuser()
@@ -30,9 +29,10 @@ def main():
     screen, window = window_code.create_window(pygame, settings)
     if verbose: print(f"Initialized the window with size {window.width}px x {window.height}px.")
 
-    window_code.welcome_text(pygame, screen, window, user, settings) # Display a welcome text
+    #window_code.welcome_text(pygame, screen, window, user, settings) # Display a welcome text
 
-    player_number = window_code.ask_player_number(pygame, screen, window, settings) # How many players are there?
+    #player_number = window_code.ask_player_number(pygame, screen, window, settings) # How many players are there?
+    player_number = 2
 
     if verbose: print(f"{player_number} players are going to play Kniffel!")
 
@@ -97,10 +97,11 @@ def main():
 
 
 if __name__ == '__main__':
-    if settings["debug"] == True:
+    if verbose:
         main()
-    elif settings["debug"] == False:
+    elif not verbose:
+        print("Hellu")
         try:
             main()
         except:
-            print("Game interrupted.")
+            print("A error occurred. Please contact the package author.")

@@ -5,7 +5,6 @@ def main(ASSETS_PATH):
     # Here you can change game settings to customize your needs
 
     settings = {
-        "debug": True,
         "update_time": 0.04, # In which interval the window shall update (in seconds) (one update every 0.1 second would be 10 fps)
 
         "bg_color": (26, 26, 26), # The color of the games background
@@ -51,7 +50,7 @@ def main(ASSETS_PATH):
                            ["Fours", (243,100,255)], ["Fives", (243,100,255)], ["Sixes", (243,100,255)]], \
                           [["Three Of A Kind", (128,255,9)], ["Four Of A Kind", (128,255,9)], ["Full House", (128,255,9)], \
                            ["Small Straight", (128,255,9)], ["Long Straight", (128,255,9)], ["Kniffel", (17,255,0)], \
-                           ["Chance", (0,255,240)]]
+                           ["Chance", (0,255,240)], ["Total", (255,255,255)]]
                          ],
 
         "dice_throws": 3, # Number of throws a player has in a single round

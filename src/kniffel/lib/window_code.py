@@ -87,7 +87,7 @@ def welcome_text(pygame, screen, window, user, settings):
     pygame.event.get()
     pygame.display.flip()
 
-    time.sleep(5)
+    time.sleep(2)
 
     return
 
@@ -150,7 +150,7 @@ def ask_player_number(pygame, screen, window, settings):
                 pygame.display.flip()
 
                 if is_successful:
-                    time.sleep(4)
+                    time.sleep(1)
                 elif not is_successful:
                     time.sleep(settings["update_time"])
 
