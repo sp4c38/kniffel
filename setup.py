@@ -12,27 +12,29 @@ def parse_requirements(filename):
 
 
 setup(
-    name="kniffel",
-    version="0.0.3",
+    name="kniffel", # name of distribution
+    version="0.0.3", # version of distribution
 
-    author="sp4c38",
-    author_email="lb@alien8.de",
+    author="sp4c38", # authors name
+    author_email="lb@alien8.de", # authors email
 
-    description="Play Kniffel on your computer!",
-    long_description = long_description,
-    long_description_content_type="text/markdown",
+    description="Play Kniffel on your computer!", # short distribution description
+    long_description = long_description, # long distribution description
+    long_description_content_type="text/markdown", # content type of the long description
 
-    install_requires = parse_requirements("requirements.txt"),
-    url = "https://github.com/sp4c38/kniffel",
+    install_requires = parse_requirements("requirements.txt"), # requirements parsed from requirements.txt file
+    url = "https://github.com/sp4c38/kniffel", # main project url
 
     package_dir = {"": "src"},
     packages = find_packages(
         where="src"
     ),
+
+    entry_points = { # Make kniffel executable through the console
+        "console_scripts": ["kniffel=kniffel.kniffel:main"],
+    },
+
     include_package_data = True,
-
-    #scripts = ["kniffel"],
-
 
     classifiers = [
         "Development Status :: 3 - Alpha",

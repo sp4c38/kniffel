@@ -1,4 +1,4 @@
-from lib import rules, utils
+from kniffel.lib import rules, utils
 
 import random
 

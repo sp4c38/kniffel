@@ -1,6 +1,6 @@
 import sys
 
-from lib import utils
+from kniffel.lib import utils
 
 def draw_outline(pygame, screen, table):
     # Draws the outline of the table

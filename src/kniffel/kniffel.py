@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 
 import sys
-
 import getpass
+import os
 import pygame
 import random
 import time
 
-from lib import window_code, utils, tablesec, informationsec, player
-
-from etc.settings import settings
+#import IPython;IPython.embed();import sys;sys.exit()
+from kniffel.lib import window_code, utils, tablesec, informationsec, player
+from kniffel.etc import settings as set
 
 def main():
+    resources_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
+    settings = set.main(resources_path)
+
     verbose = False
 
     if "-v" in sys.argv:

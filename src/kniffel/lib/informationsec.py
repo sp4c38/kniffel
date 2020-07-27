@@ -1,7 +1,7 @@
 # The function which takes care of drawing the information page / and updating it
 import random
 
-from lib import utils
+from kniffel.lib import utils
 
 class Information:
     def __init__(self, pygame, window, settings):
