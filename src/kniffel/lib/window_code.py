@@ -87,7 +87,7 @@ def welcome_text(pygame, screen, window, user, settings):
     pygame.event.get()
     pygame.display.flip()
 
-    time.sleep(2)
+    time.sleep(settings["welcome_wait_time"])
 
     return
 
@@ -150,12 +150,12 @@ def ask_player_number(pygame, screen, window, settings):
                 pygame.display.flip()
 
                 if is_successful:
-                    time.sleep(1)
+                    time.sleep(settings["player_number_wait_time"])
                 elif not is_successful:
                     time.sleep(settings["update_time"])
 
 
-        time.sleep(0.1)
+        time.sleep(settings["update_time"])
     return players_to_play
 
 def play_music(pygame, settings):

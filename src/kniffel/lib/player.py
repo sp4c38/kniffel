@@ -39,7 +39,10 @@ class Player:
         "lgstraight": self.Event("lgstraight", pygame.Rect(width_start, (11*table.one_line_height), table.player_column_size[0], table.one_line_height), 11), # Long Straight
         "kniffel": self.Event("kniffel", pygame.Rect(width_start, (12*table.one_line_height), table.player_column_size[0], table.one_line_height), 12), # Kniffel
         "chance": self.Event("chance", pygame.Rect(width_start, (13*table.one_line_height), table.player_column_size[0], table.one_line_height), 13), # Chance
+        "total": self.Event("total", pygame.Rect(width_start, (14*table.one_line_height), table.player_column_size[0], table.one_line_height), 14), # The total of all achievements
         }
+
+        self.progress["total"].change_value(0) # At beginning of game the total is 0
 
     def update_achievement(self, name, pygame, table, width_start):
         self.progress[name].position = pygame.Rect(width_start, (self.progress[name].achievement_counter*table.one_line_height), table.detail_column_size[0], table.one_line_height)
@@ -190,7 +193,7 @@ def get_current(players):
 
     return None
 
-def make_action(dices, achievement, settings):
+def make_action(dices, achievement, total, settings):
     # This checks if the selected achievement to enter the value is valid
 
     # dices ... the dices the player threw
@@ -200,6 +203,7 @@ def make_action(dices, achievement, settings):
 
     if checked[achievement.name] != None: # If the achievement is valid to enter
         achievement.change_value(checked[achievement.name])
+        total.change_value(total.value + checked[achievement.name])
         return True
     else:
         return False
@@ -221,13 +225,14 @@ def validate_click(pygame, event, player, all_players, information_sec, settings
         if achievement.position.collidepoint(click_position): # Check if the clicked position intervenes with the cell of a achievment
             if player.dices[0].value: # Check if the first item has any value
                                       # Because if first item has no value all other also have no value
-                if make_action(player.dices, achievement, settings):
-                    player.remove_stored_dices()
-                    player.throws = settings["dice_throws"] # Revert the throws for the player back to 3
-                                                            # that he can throw the dice again 3 times the next turn
-                    all_players = switch_turn(all_players, player)
-                    updated = True
-                    updated_achievement = True
+                if not achievement.name in ["total"]: # List includes all achievements which shall be ignored if clicked
+                    if make_action(player.dices, achievement, player.progress["total"], settings):
+                        player.remove_stored_dices()
+                        player.throws = settings["dice_throws"] # Revert the throws for the player back to 3
+                                                                # that he can throw the dice again 3 times the next turn
+                        all_players = switch_turn(all_players, player)
+                        updated = True
+                        updated_achievement = True
 
     if player.dices[0].value != None: # If first item has a value all others also have
         # If any dice is clicked the level is changed (dice put aside) and the dice positions

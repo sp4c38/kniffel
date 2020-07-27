@@ -13,7 +13,8 @@ def draw_outline(pygame, screen, table):
     return
 
 def draw_detail_column(pygame, screen, settings, table):
-    # Draw the line on the right side of the detail column / seperating detail column from player_column
+    # Draw the achievement names in the detail column and
+    # draw the line on the right side of the detail column / seperating detail column from player_column
     pygame.draw.line(screen, table.color, (table.detail_column_size[0]-table.thicknesshalf, 0),
                     (table.detail_column_size[0]-table.thicknesshalf, table.detail_column_size[1]), table.thickness)
 

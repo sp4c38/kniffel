@@ -5,7 +5,7 @@ def main(ASSETS_PATH):
     # Here you can change game settings to customize your needs
 
     settings = {
-        "update_time": 0.04, # In which interval the window shall update (in seconds) (one update every 0.1 second would be 10 fps)
+        "update_time": 0.03, # Interval the window updates (in seconds) (one update every 0.1 second would be 10 fps)
 
         "bg_color": (26, 26, 26), # The color of the games background
         "error_color": 91, # The ANSI color code to highlight errors in the program output
@@ -26,12 +26,14 @@ def main(ASSETS_PATH):
                                         # Number in percent, must < 1
 
         "welcome_text": [["Welcome {},", (255,255,255)], ["Let's play Kniffel!", (255,255,255)]], # Text for welcome screen
+        "welcome_wait_time": 2, # The wait time in seconds until the welcome screens disappears
 
         # A text displayed to ask how many players want to play kniffel
         "player_number_text": [["How many players want to play?", (255,255,255)], \
                                ["Please press the number", (255,255,255)], \
                                ["on the keyboard. (max. {})", (255,255,255)]
                               ],
+        "player_number_wait_time": 1, # The wait time in seonds until the player number screen disappears
 
         "max_players": 6, # The maximal amount of players allowed to play
         # A message displayed when the player number selection was successful
