@@ -8,6 +8,7 @@ class Player:
         self.dices = [] # Stores the dices currently thrown or selected by the player
         self.name = name # The name of the player
         self.throws = settings["dice_throws"] # Number of throws a player has in a single round
+        self.only_one_level = True # Set to false if there is more than one level active
 
     class Event:
         # Event holds attributes for one single achievement a player can reach
@@ -81,10 +82,11 @@ class Player:
             dice = self.DiceField()
             self.dices.append(dice)
 
-    def update_dices(self, pygame, information_sec):
+    def update_dices(self, pygame, information_sec, player):
         # Calculates the rectangle position for the dices
         # Can be run the first time and when window resized
         level_distri = {0: 0, 1: 0}
+
         for dice in self.dices:
             if dice.level == 0:
                 level_distri[0] += 1
@@ -94,14 +96,22 @@ class Player:
         start_width1, dice_spacing = utils.center_obj_width(information_sec.dice_size[0], level_distri[0], information_sec.width)
         if level_distri[1] == 0:
             start_height1, line_spacing = utils.center_obj_height(information_sec.dice_size[1], 1, information_sec.dice_section_height)
+            player.only_one_level = True
         else:
-            start_height1, line_spacing = utils.center_obj_height(information_sec.dice_size[1], 2, information_sec.dice_section_height)
+            start_height1, line_spacing = utils.center_obj_height(information_sec.dice_size[1], 2,
+                                                                  information_sec.dice_section_height - information_sec.level_spacing)
+
+            player.only_one_level = False
+
         start_width1 += information_sec.start_width
         start_height1 += information_sec.crt_player_height
 
         start_width2, dice_spacing = utils.center_obj_width(information_sec.dice_size[0], level_distri[1], information_sec.width)
         start_width2 += information_sec.start_width
-        start_height2 = start_height1 + line_spacing + (information_sec.dice_section_height * information_sec.level_spacing)
+        start_height2 = start_height1 + line_spacing + (information_sec.level_spacing / 2)
+
+        if not level_distri[1] == 0:
+            information_sec.level_two_starting_height = start_height2
 
         for dice in self.dices:
             if dice.level == 0:
@@ -116,7 +126,7 @@ class Player:
             if dice.value:
                 dice.set_image(information_sec.dice_images[dice.value])
 
-    def roll_dices(self, pygame, information_sec, settings):
+    def roll_dices(self, pygame, information_sec, player, settings):
         for dice in self.dices:
             if dice.level == 0:
                 random_number = random.randint(min(information_sec.dice_images), max(information_sec.dice_images))
@@ -124,7 +134,7 @@ class Player:
 
         self.throws -= 1
 
-        self.update_dices(pygame, information_sec)
+        self.update_dices(pygame, information_sec, player)
 
     def remove_stored_dices(self):
         # Remove the dices from the previouse round of a player
@@ -156,7 +166,7 @@ def recalculate_positions(pygame, players, table_sec, information_sec):
     width_pointer = table_sec.detail_column_size[0]
 
     for plyr in players:
-        plyr.update_dices(pygame, information_sec)
+        plyr.update_dices(pygame, information_sec, plyr)
 
         for achievement in plyr.progress:
             plyr.update_achievement(achievement, pygame, table_sec, width_pointer)
@@ -244,14 +254,14 @@ def validate_click(pygame, event, player, all_players, information_sec, settings
 
                 updated = True
 
-        player.update_dices(pygame, information_sec)
+        player.update_dices(pygame, information_sec, player)
 
     if information_sec.dice_button_rect.collidepoint(click_position):
         if player.throws == 0: # If the player has taken up all his throws
                                # the dices can't be rolled anymore
             pass
         else:
-            player.roll_dices(pygame, information_sec, settings)
+            player.roll_dices(pygame, information_sec, player, settings)
             updated = True
 
     return updated, updated_achievement, all_players

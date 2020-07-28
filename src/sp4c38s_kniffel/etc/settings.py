@@ -72,8 +72,17 @@ def main(ASSETS_PATH):
         },
 
         "dice_section_ratio": 0.25, # Ratio of the height of the dice section to the total height of the information section
-        "dice_section_level_spacing_ratio": 0.1, # Ratio of the height of the dice section which is used as a space
-                                                 # between the first and second dice level
+        "dice_section_level_spacing_ratio": 0.1, # Ratio of the height of the dice section as a spacing
+                                                 # This ratio includes all spacings:
+                                                 #-------------------------#
+                                                 #      2  |  3  |  4      #  Dices
+                                                 #-------------------------#
+                                                 #                         #  First spacing
+                                                 #-------------------------#
+                                                 #          1  |  5        #  Dices
+                                                 #-------------------------#
+                                                 #                         #  Second spacing
+                                                 # content which follows after the dice section.... #
 
         "throws_remain_section_ratio": 0.30, # Ratio of the height of the rounds remaining section to the total height of the information section
         "throws_remain_text": [["You can still roll", (255,255,255)],
@@ -82,7 +91,8 @@ def main(ASSETS_PATH):
 
 
         "dice_button_ratio": 0.1, # The ratio of the total height of the information section assigned for the dice button
-        "dice_button_border_radius_ratio": 2.39, # The ratio from the total width of the dice button which is than used as the border radius (rounded edges for button)
+        "border_radius_ratio": 2.39, # A ratio for the border radius. The border radius is calculated with the ratio,
+                                     # the height and the width of the surface
         "dice_button_color": (242,255,5), # The background color of the dice button
         "dice_button_text": [["Throw The Dices", (139,69,19)]], # The text for the dice button
 
