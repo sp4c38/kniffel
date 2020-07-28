@@ -6,11 +6,18 @@ This is a game which makes the populare game Kniffel playable on your computer u
 This game is currently only avalible on test.pypi.org. If the python packager `pip` is installed run:
 
 ```
-pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple sp4c38s-kniffel
+$ pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple sp4c38s-kniffel
 ```
 `--index-url` tells pip to install from the test python package index
 <br>
 `--extra-index-url` will make sure that all dependencies are downloaded from the official python package index
+
+## Usage
+After you installed the game you can run it by simply typing
+
+`$ kniffel`
+
+in your console.
 
 ## What is Kniffel?
 Kniffel or also known as Yahtzee is a popular game. The goal of the game is to roll different combinations with five dices.
