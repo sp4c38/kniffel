@@ -7,12 +7,14 @@ import pygame
 import random
 import time
 
-from kniffel.lib import window_code, utils, tablesec, informationsec, player
-from kniffel.etc import settings as set
+from sp4c38s_kniffel.lib import window_code, utils, tablesec, informationsec, player
+from sp4c38s_kniffel.etc import settings as set
 
 if "-v" in sys.argv:
     # When verbose output is enabled extra information about the game running is outputed
     verbose = True
+else:
+    verbose = False
 
 def main():
     resources_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
@@ -100,8 +102,7 @@ if __name__ == '__main__':
     if verbose:
         main()
     elif not verbose:
-        print("Hellu")
         try:
             main()
         except:
-            print("A error occurred. Please contact the package author.")
+            print("The game exited.")

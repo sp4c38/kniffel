@@ -1,7 +1,7 @@
 # The function which takes care of drawing the information page / and updating it
 import random
 
-from kniffel.lib import utils
+from sp4c38s_kniffel.lib import utils
 
 class Information:
     def __init__(self, pygame, window, settings):
@@ -21,6 +21,8 @@ class Information:
         for img_index in range(min(settings["dice_images"]), max(settings["dice_images"])+1):
             image = pygame.image.load(settings["dice_images"][img_index]).convert().convert_alpha()
             self.dice_images[img_index] = pygame.transform.scale(image, self.dice_size)
+
+        self.level_spacing = settings["dice_section_level_spacing_ratio"] # Space between first and second level
 
         self.throws_remaining_height = self.height * settings["throws_remain_section_ratio"]
 
@@ -61,9 +63,12 @@ def draw_current_player_text(pygame, screen, information_sec, player, settings):
     return
 
 
-def draw_dices(pygame, screen, information_sec, player, settings):
+def draw_dices(pygame, screen, information_sec, player):
     if player.dices[0].value == None: # If first item has no value/image assigned the dices weren't yet thrown
         return
+
+
+    
 
     for dice in player.dices:
         dicepos = (dice.position.left, dice.position.top)
@@ -97,7 +102,11 @@ def draw_throws_left(pygame, screen, information_sec, player, settings):
 
 def draw_dice_button(pygame, screen, information_sec, player, settings):
     dice_button_size = (information_sec.width, information_sec.dice_button_height)
-    pygame.draw.rect(screen, information_sec.dice_button_color, information_sec.dice_button_rect) # surface, color, rectangle
+    #import IPython;IPython.embed();import sys;sys.exit()
+    pygame.draw.rect(screen, information_sec.dice_button_color, information_sec.dice_button_rect,
+                     border_radius=int((dice_button_size[0]/dice_button_size[1])*settings["dice_button_border_radius_ratio"]))#int(dice_button_size[0] * settings["dice_button_border_radius_ratio"])) # surface, color,
+                                                                                                           # rectangle,
+    print(dice_button_size)                                                                                                   # dice button radius for rounded edges
 
     spaced_size = (dice_button_size[0] * (1-settings["space_left_right"]), dice_button_size[1] * (1-settings["space_top_bottom"])) # The size of the button reduced to make the text look good
 
@@ -123,6 +132,6 @@ def draw_dice_button(pygame, screen, information_sec, player, settings):
 
 def draw(pygame, screen, information_sec, player, settings):
     draw_current_player_text(pygame, screen, information_sec, player, settings)
-    draw_dices(pygame, screen, information_sec, player, settings)
+    draw_dices(pygame, screen, information_sec, player)
     draw_throws_left(pygame, screen, information_sec, player, settings)
     draw_dice_button(pygame, screen, information_sec, player, settings)

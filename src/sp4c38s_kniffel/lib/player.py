@@ -1,4 +1,4 @@
-from kniffel.lib import rules, utils
+from sp4c38s_kniffel.lib import rules, utils
 
 import random
 
@@ -101,7 +101,7 @@ class Player:
 
         start_width2, dice_spacing = utils.center_obj_width(information_sec.dice_size[0], level_distri[1], information_sec.width)
         start_width2 += information_sec.start_width
-        start_height2 = start_height1 + line_spacing
+        start_height2 = start_height1 + line_spacing + (information_sec.dice_section_height * information_sec.level_spacing)
 
         for dice in self.dices:
             if dice.level == 0:
