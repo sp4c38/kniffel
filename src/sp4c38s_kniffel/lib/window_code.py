@@ -62,7 +62,10 @@ def welcome_text(pygame, screen, window, user, settings):
 
     clear_window(pygame, screen, settings)
 
-    spaced_size = (window.width*(1-settings["space_left_right"]), window.height*(1-settings["space_top_bottom"])) # The size of the window reduced to make the text look good
+    # spaced_size is used throughout the program
+    # spaced_size is used to reduce the size of a box that it doesn't stick right on the left side,
+    # but that there is a little margin to the left, right, top and bottom
+    spaced_size = (window.width * (1 - settings["space_left_right"]), window.height * (1 - settings["space_top_bottom"]))
 
     welcome_text = settings["welcome_text"]
 
@@ -71,23 +74,45 @@ def welcome_text(pygame, screen, window, user, settings):
 
     start_height, spacing = utils.center_obj_height(font.size(welcome_text[0][0])[1], len(welcome_text), window.height)
 
-    line_counter = 1
     for line in welcome_text:
-        if line_counter == 1: # For personal greeting insert the user name
-            line[0] = line[0].format(user)
-
-        text = font.render(line[0], True, line[1])
+        text = font.render(line[0].format(user), True, line[1])
         textpos = (utils.center_obj_width(font.size(line[0])[0], 1, window.width)[0], start_height) # The position of the text
         screen.blit(text, textpos) # Add the text to the screen at textpos
 
         start_height += spacing # Increase start_height for the next line
-        line_counter += 1
-
 
     pygame.event.get()
     pygame.display.flip()
 
     time.sleep(settings["welcome_wait_time"])
+
+    return
+
+def player_won(pygame, screen, player, window, settings):
+    # Display a text when a player has won
+
+    clear_window(pygame, screen, settings)
+
+    spaced_size = (window.width * (1 - settings["space_left_right"]), window.height * (1 - settings["space_top_bottom"]))
+
+    won_text = settings["won_text"]
+
+    font_size = min([utils.get_font_by_size(pygame, spaced_size, line[0], len(won_text), settings) for line in won_text])
+    font = pygame.font.Font(settings["font"], font_size)
+
+    start_height, spacing = utils.center_obj_height(font.size(won_text[0][0])[1], len(won_text), window.height)
+
+    for line in won_text:
+        text = font.render(line[0].format(player.name), True, line[1])
+        textpos = (utils.center_obj_width(font.size(line[0])[0], 1, window.width)[0], start_height) # The position of the text
+        screen.blit(text, textpos) # Add the text to the screen at textpos
+
+        start_height += spacing # Increase start_height for the next line
+
+    pygame.event.get()
+    pygame.display.flip()
+
+    time.sleep(settings["won_wait_time"])
 
     return
 

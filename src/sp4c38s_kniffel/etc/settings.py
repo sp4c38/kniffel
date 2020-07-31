@@ -28,11 +28,15 @@ def main(ASSETS_PATH):
         "welcome_text": [["Welcome {},", (255,255,255)], ["Let's play Kniffel!", (255,255,255)]], # Text for welcome screen
         "welcome_wait_time": 2, # The wait time in seconds until the welcome screens disappears
 
-        # A text displayed to ask how many players want to play kniffel
+        # Text displayed to ask how many players want to play kniffel
         "player_number_text": [["How many players want to play?", (255,255,255)], \
                                ["Please press the number", (255,255,255)], \
                                ["on the keyboard. (max. {})", (255,255,255)]
                               ],
+        # Text displayed when the player number selection failed
+        "player_number_unsuccessful": [["Sorry, this doesn't work. Please try again", (255,255,255)],
+                                       ["A maximum of {} players can play.", (255,255,255)]
+                                      ],
         "player_number_wait_time": 1, # The wait time in seonds until the player number screen disappears
 
         "max_players": 6, # The maximal amount of players allowed to play
@@ -126,11 +130,9 @@ def main(ASSETS_PATH):
 
         "table_value_color": (255,255,255), # The color of entries/values in the table
 
-
-        # The text as array -> first value is the text and the second the color of the texts
-        "player_number_unsuccessful": [["Sorry, this doesn't work. Please try again", (255,255,255)],
-                                       ["A maximum of {} players can play.", (255,255,255)]
-                                      ],
+        # Text displayed when any player has won
+        "won_text": [["Yippee! Player {} won the game.", (255,255,255)], ["Congratulations!", (255,255,255)]],
+        "won_wait_time": 20, # The wait time in seconds until the won screens disappears
     }
 
     return settings
