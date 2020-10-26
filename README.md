@@ -25,7 +25,7 @@ For example if you would roll this combination...
 
 <img width="40%" style="display:block;margin-left:auto;margin-right:auto;" src="https://raw.githubusercontent.com/sp4c38/kniffel/master/readme_assets/example_dice_roll.png">
 
-... you would count all threes together which would be 9 and register the reached points in a table like this:
+... you could count all threes together which would be 9 and register the reached points in a table like this:
 
 <img width="50%" style="display: block; margin-left:auto; margin-right:auto;" src="https://raw.githubusercontent.com/sp4c38/kniffel/master/readme_assets/kniffel_table.png">
 
@@ -33,7 +33,7 @@ So you could register 9 in the "Threes" column. You also could register them in 
 
 There are multiple different combinations which you have to reach to win the game.
 
-For futher explanation see [this Wikipedia article.](https://en.wikipedia.org/wiki/Yahtzee)
+For futher explanation see [the Wikipedia article.](https://en.wikipedia.org/wiki/Yahtzee)
 
 ## Prerequisites
 Right now the latest pygame version is 1.9.6 which was released on April 25, 2019. This game uses the pygame version 2.0.0.dev10 which is a pre-release because this release fixes some issues in 1.9.6 and supports python3.8.
