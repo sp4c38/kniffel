@@ -1,4 +1,4 @@
-from sp4c38s_kniffel.lib import rules, utils
+from kniffelGame.lib import rules, utils
 
 import random
 

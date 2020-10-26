@@ -7,8 +7,8 @@ import pygame
 import random
 import time
 
-from sp4c38s_kniffel.lib import window_code, utils, tablesec, informationsec, player
-from sp4c38s_kniffel.etc import settings as set
+from kniffelGame.lib import window_code, utils, tablesec, informationsec, player
+from kniffelGame.etc import settings as set
 
 if "-v" in sys.argv:
     # When verbose output is enabled extra information about the game running is outputed

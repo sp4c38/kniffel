@@ -1,7 +1,7 @@
 import sys
 import time
 
-from sp4c38s_kniffel.lib import utils, tablesec, informationsec
+from kniffelGame.lib import utils, tablesec, informationsec
 
 class WindowClass:
     def __init__(self, width, height):

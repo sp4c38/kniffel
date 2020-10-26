@@ -12,8 +12,8 @@ def parse_requirements(filename):
 
 
 setup(
-    name="sp4c38s-kniffel", # name of distribution
-    version="1.0.0", # version of distribution
+    name="kniffelGame", # name of distribution
+    version="1.0.5", # version of distribution
 
     author="sp4c38", # authors name
     author_email="lb@alien8.de", # authors email
@@ -31,7 +31,7 @@ setup(
     ),
 
     entry_points = { # Make kniffel executable through the console
-        "console_scripts": ["kniffel=kniffel.kniffel:main"],
+        "console_scripts": ["kniffel=kniffelGame.kniffel:main"],
     },
 
     include_package_data = True,
