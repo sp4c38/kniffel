@@ -76,7 +76,7 @@ def welcome_text(pygame, screen, window, user, settings):
 
     for line in welcome_text:
         text = font.render(line[0].format(user), True, line[1])
-        textpos = (utils.center_obj_width(font.size(line[0])[0], 1, window.width)[0], start_height) # The position of the text
+        textpos = (utils.center_obj_width(font.size(line[0].format(user))[0], 1, window.width)[0], start_height) # The position of the text
         screen.blit(text, textpos) # Add the text to the screen at textpos
 
         start_height += spacing # Increase start_height for the next line
