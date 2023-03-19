@@ -6,14 +6,13 @@ This is a game which makes the populare game Kniffel playable on your computer u
 Kniffel game is currently only avalible on test.pypi.org. 
 
 ##### Prerequisites
-- pygame version 2.0.0.dev10 (using pre-release because it fixes many issues from currently last released pygame version 1.9.6)
 - works with python3.7 and python3.8 (not tested on other versions)
 - pip must be installed
 
 If all prerequisites are satisfied run:
 
 ```
-$ pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple kniffelGame
+pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple kniffelGame -U
 ```
 `--index-url` tells pip to install from the test python package index
 <br>
