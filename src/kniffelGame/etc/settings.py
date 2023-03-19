@@ -26,7 +26,7 @@ def main(ASSETS_PATH):
                                         # Number in percent, must < 1
 
         "welcome_text": [["Welcome {},", (255,255,255)], ["Let's play Kniffel!", (255,255,255)]], # Text for welcome screen
-        "welcome_wait_time": 2, # The wait time in seconds until the welcome screens disappears
+        "welcome_wait_time": 3, # The wait time in seconds until the welcome screens disappears
 
         # Text displayed to ask how many players want to play kniffel
         "player_number_text": [["How many players want to play?", (255,255,255)], \
@@ -37,7 +37,7 @@ def main(ASSETS_PATH):
         "player_number_unsuccessful": [["Sorry, this doesn't work. Please try again", (255,255,255)],
                                        ["A maximum of {} players can play.", (255,255,255)]
                                       ],
-        "player_number_wait_time": 1, # The wait time in seonds until the player number screen disappears
+        "player_number_wait_time": 3, # The wait time in seconds until the player number screen disappears
 
         "max_players": 6, # The maximal amount of players allowed to play
         # A message displayed when the player number selection was successful

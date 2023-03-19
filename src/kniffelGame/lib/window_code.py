@@ -192,7 +192,7 @@ def play_music(pygame, settings):
 
 
 def set_window_icon(pygame, settings):
-    icon = pygame.image.load(settings["window_icon"]) # Load window icon
+    icon = pygame.image.load_extended(settings["window_icon"]) # Load window icon
     pygame.display.set_icon(icon) # Activate window icon
 
     return

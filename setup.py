@@ -13,7 +13,7 @@ def parse_requirements(filename):
 
 setup(
     name="kniffelGame", # name of distribution
-    version="1.0.5", # version of distribution
+    version="1.0.6", # version of distribution
 
     author="sp4c38", # authors name
     author_email="lb@alien8.de", # authors email
