@@ -25,6 +25,10 @@ After you installed the game you can run it by simply typing
 
 into your console.
 
+## Demo
+
+https://user-images.githubusercontent.com/36799235/226176482-33922a84-48ea-4ced-9f61-50e8376aba3b.mp4
+
 ## What is Kniffel?
 Kniffel or also known as Yahtzee is a popular game. The goal of the game is to roll different combinations with five dices.
 For example if you would roll this combination...
